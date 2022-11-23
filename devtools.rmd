@@ -1,0 +1,108 @@
+# Develop R package
+
+## Now
+
+```{r check}
+devtools::document(roclets = c("rd", "collate", "namespace"))
+devtools::check()
+devtools::check_rhub()
+devtools::load_all()
+devtools::unload()
+devtools::build()
+```
+
+```{bash git}
+## git common -----------------------------------------------------
+git add .
+git commit -m "fix yyread" # 将文件提交到本地仓库
+git push -u origin master  ## push the develop repos 
+git tag V0.0.5.1
+git push origin V0.0.5.1
+git commit --amend       ## 修改注释
+
+## init -----------------------------------------------------------
+git config --global user.name "Yan"
+git config --global user.email "yanpd01@qq.com"
+
+git init
+git add .
+git commit -m "creat pkg"
+git branch -M main
+git remote add origin https://github.com/yanpd01/ggsector.git
+git remote set-url --add  origin https://gitee.com/yanpd01/ggsector.git
+git push -u origin main
+
+
+## branch --------------------------------------------------------
+git checkout develop              ## switch to develop branch
+git checkout master               ## switch to master branch
+git merge --no-ff develop         ## merge develop to master
+git branch -d develop             ## delete local branch
+git push origin --delete develop  ## delete remote branch
+
+## tag -----------------------------------------------------------
+# git tag -a v1.2 9fceb02 -m "my tag"  ## add tag for sepcific commit.
+git tag V0.0.5.0                      ## add git tag.
+git push origin --tags               ## push all tags to remote.
+git push origin v1.0                 ## push specific tag to remote.
+git tag -d V0.0.5.0                  # delete local tag
+git push origin :refs/tags/V0.0.5.0   # delete remote tag
+
+## 
+git reset --soft HEAD^    ## 撤销上次提交
+git reset --soft HEAD~1   ## 撤销上次提交
+git reset --soft HEAD~2   ## 撤销上两次提交
+
+```
+
+```{bash install}
+cd ..
+"C:\Program Files\R\R-4.2.1\bin\x64\Rcmd.exe" INSTALL \
+    --no-multiarch \
+    --with-keep.source \
+    --library="C:/Users/yan/AppData/Local/R/win-library/4.2" \
+    yyeasy
+```
+
+```{r install}
+remotes::install_github("yanpd01/yyeasy", upgrade = "never")
+```
+
+
+## build R package flow
+
+```{r flow}
+## 0、prepare
+devtools::has_devel()
+
+## 1、create pkg project -------------------------------------------------------
+usethis::create_package("ggsector")
+
+## 2、open the pkg dir; open the pkg project, write functions ------------------
+library(devtools)
+library(roxygen2)
+usethis::use_r("reexport") ## 导入和导出
+usethis::use_r("function") ## 编写功能
+usethis::use_data(its) ## 先将本地数据导入 R 中变量，然后用这个函数将数据导入到包中
+usethis::use_r("data") ## 为数据编写R文件
+
+## 3、annotation --------------------------------------------------------------
+yourname <- function() {
+    ##  这个位置按下 Ctrl+Alt+Shift+R 插入注释框架
+}
+devtools::document() ## 转义注释
+
+## 4、write the import depend  -------------------------------------------------
+usethis::use_package("magrittr") ## 第二个选项默认为 import
+
+## 5、description --------------------------------------------------------------
+person() ## ## 直接在 description 文件中修改标题，描述，作者
+usethis::use_gpl3_license()
+
+## 6、load check and build -----------------------------------------------------
+devtools::load_all() ## 快捷键：Ctrl + Shift + L 相当于library，可以测试当前包
+devtools::unload() ##   前面加载的卸载
+
+devtools::check() ## 快捷键  Ctrl + Shift + E
+devtools::build() ## 快捷键  Ctrl + Shift + B
+```

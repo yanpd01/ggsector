@@ -1,0 +1,6 @@
+^ggsector\.Rproj$
+^\.Rproj\.user$
+^\.Rhistory
+^LICENSE.*$
+^devtools.rmd$
+^.*\.code-workspace$
