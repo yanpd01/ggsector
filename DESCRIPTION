@@ -1,5 +1,5 @@
 Package: ggsector
-Title: Draw Sector in R
+Title: Draw Sectors
 Version: 1.5.5
 Authors@R: 
     person(given = "Pengdong",
@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre", "cph"),
            email = "yanpd01@gmail.com",
            comment = c(ORCID = "0000-0002-2425-7930"))
-Description: The "ggsector" is an R package that can use "grid" or "ggplot2" to easily draw sectors. At the same time, "ggsector" provides some cases of how to call `grid.sector` in "ComplexHeatmap", and provides a function to interface with "Seurat" to facilitate the display of cell markers.
+Description: Some useful functions that can use 'grid' and 'ggplot2' to plot sectors and interact with 'Seurat' to plot gene expression percentages. Also, there are some examples of how to draw sectors in 'ComplexHeatmap'.
 License: Artistic-2.0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -16,7 +16,6 @@ Suggests:
     ComplexHeatmap,
     knitr,
     rmarkdown,
-    prettydoc,
     reshape2
 Depends: 
     ggplot2,

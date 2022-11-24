@@ -14,6 +14,9 @@ display in this key}
 
 \item{size}{Width and height of key in mm.}
 }
+\value{
+ggplot legend
+}
 \description{
 draw_key_sector
 }

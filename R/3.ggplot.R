@@ -5,7 +5,7 @@
 #' @rdname draw_key_sector
 #'
 #' @inheritParams ggplot2::draw_key_polygon
-#'
+#' @return ggplot legend
 #' @export
 draw_key_sector <- function(data, params, size) {
     if (getOption("debug_sector_legend", FALSE)) {
@@ -173,9 +173,10 @@ GeomSectorIndividual <- ggproto(
 #' when "individual=TRUE", draw individually at a slower speed.
 #' Vector form cannot control the deformation of the sector, you need to add coord_fixed()
 #' @param verbose Logical, default is TRUE. Whether to display reminder information.
-#' @return ggplot
+#' @return ggplot object
 #'
 #' @examples
+#' \donttest{
 #' library(magrittr)
 #' # prepare data
 #' set.seed(1)
@@ -218,7 +219,7 @@ GeomSectorIndividual <- ggproto(
 #'         individual = TRUE
 #'     ) +
 #'     theme_bw()
-#'
+#' }
 #' @export
 geom_sector <- function(mapping = NULL, data = NULL,
                         stat = "identity", position = "identity",

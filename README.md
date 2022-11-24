@@ -31,7 +31,7 @@ Get the released version from Cran:
 ``` r
 ## The new version of the R package is still under review.
 ## If you want to try it out, you can use the following github method to install it
-install.packages("ggsector")
+# install.packages("ggsector")
 ```
 
 Or the development version from github or gitee:

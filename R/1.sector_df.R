@@ -36,6 +36,7 @@ sector_df_360 <- data.frame(
 #' @return coordinates of sector.
 #'
 #' @examples
+#' \donttest{
 #' ## coordinates of single sector
 #' # type of percent, start = 0, r_start = 0
 #' tmp_df <- sector_df(x = 0.5, y = 0.5, theta = 25, r = 0.4, start = 0, r_start = 0)
@@ -97,7 +98,7 @@ sector_df_360 <- data.frame(
 #'         fill = 3:1, col = 1:3
 #'     )
 #' )
-#'
+#' }
 #' @export
 sector_df <- function(x = 0.5,
                       y = 0.5,

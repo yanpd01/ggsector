@@ -65,6 +65,7 @@ and return multiple sector coordinates
 For more details, please type \code{vignette("ggsector")}.
 }
 \examples{
+\donttest{
 ## coordinates of single sector
 # type of percent, start = 0, r_start = 0
 tmp_df <- sector_df(x = 0.5, y = 0.5, theta = 25, r = 0.4, start = 0, r_start = 0)
@@ -126,5 +127,5 @@ grid.polygon(
         fill = 3:1, col = 1:3
     )
 )
-
+}
 }

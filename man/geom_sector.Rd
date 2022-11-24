@@ -74,7 +74,7 @@ Vector form cannot control the deformation of the sector, you need to add coord_
 \item{verbose}{Logical, default is TRUE. Whether to display reminder information.}
 }
 \value{
-ggplot
+ggplot object
 }
 \description{
 Draw sector with ggplot2.
@@ -93,6 +93,7 @@ For details, please check the \code{\link[=grid.sector]{grid.sector()}}.
 For more details, please type \code{vignette("ggsector")}.
 }
 \examples{
+\donttest{
 library(magrittr)
 # prepare data
 set.seed(1)
@@ -135,6 +136,6 @@ ggplot(t1) +
         individual = TRUE
     ) +
     theme_bw()
-
+}
 }
 \keyword{datasets}
