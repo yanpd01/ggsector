@@ -127,8 +127,8 @@ grid.polygon(
 ```{r, fig.width=5, fig.height=4}
 grid.newpage()
 gp <- sectorGrob(
-    x = unit(c(3, 7, 11), "cm"),
-    y = unit(c(3, 7, 11), "cm"),
+    x = unit(c(3, 5, 7), "cm"),
+    y = unit(c(3, 5, 7), "cm"),
     theta = c(90, 180, 270),
     r = 1,
     start = c(180, 180, 270),
