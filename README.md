@@ -39,9 +39,17 @@ Or the development version from github or gitee:
 ``` r
 ## install.packages("remotes")
 # from github
-remotes::install_github("yanpd01/ggsector")
+remotes::install_github(
+    "yanpd01/ggsector",
+    dependencies = TRUE,
+    build_vignettes = TRUE
+)
 # from gitee
-remotes::install_git("https://gitee.com/yanpd01/ggsector")
+remotes::install_git(
+    "https://gitee.com/yanpd01/ggsector",
+    dependencies = TRUE,
+    build_vignettes = TRUE
+)
 ```
 
 ## :books: Usage
