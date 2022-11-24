@@ -1,7 +1,5 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-    #> Warning: package 'badger' was built under R version 4.2.2
-
 # ggsector: Easily draw sectors with grid and ggplot2
 
 <!-- badges: start -->
@@ -10,7 +8,7 @@
 state and is being actively
 developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 <!-- [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggsector)](https://cran.r-project.org/package=ggsector) -->
-[![](https://img.shields.io/badge/devel%20version-1.5.3-green.svg)](https://github.com/yanpd01/ggsector)
+[![](https://img.shields.io/badge/devel%20version-1.5.5-green.svg)](https://github.com/yanpd01/ggsector)
 
 ![](https://img.shields.io/badge/platforms-all-green.svg)
 ![](https://img.shields.io/badge/Windows-passing-green.svg)

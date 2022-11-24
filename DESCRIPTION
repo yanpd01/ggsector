@@ -1,6 +1,6 @@
 Package: ggsector
 Title: Draw Sector in R
-Version: 1.5.3
+Version: 1.5.5
 Authors@R: 
     person(given = "Pengdong",
            family = "Yan",

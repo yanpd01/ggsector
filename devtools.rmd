@@ -12,6 +12,7 @@ devtools::build()
 ## check for cran
 # rhub::validate_email(email = "yanpd01@gmail.com", token = "6f28055d6e6e42ba80edae8641e6d9dc")
 devtools::check_rhub()
+devtools::check_rhub()
 devtools::check_rhub(env_vars = c(R_COMPILE_AND_INSTALL_PACKAGES = "always"))
 ```
 
@@ -64,11 +65,11 @@ git reset --soft HEAD~2   ## 撤销上两次提交
 
 ```{bash install}
 cd ..
-"C:\Program Files\R\R-4.2.1\bin\x64\Rcmd.exe" INSTALL \
+"C:\Program Files\R\R-4.2.2\bin\x64\Rcmd.exe" INSTALL \
     --no-multiarch \
     --with-keep.source \
     --library="C:/Users/yan/AppData/Local/R/win-library/4.2" \
-    yyeasy
+    ggsector
 ```
 
 ```{r install}
