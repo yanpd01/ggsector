@@ -40,4 +40,5 @@ plot_out
 .code-workspace
 .history
 .history/*
-inst/doc
+/doc/
+/Meta/

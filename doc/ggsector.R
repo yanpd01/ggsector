@@ -16,7 +16,7 @@ library(ggsector)
 
 ## ---- fig.width=3, fig.height=3-----------------------------------------------
 tmp_df <- sector_df(x = 0.5, y = 0.5, theta = 25, r = 0.4, start = 0, r_start = 0)
-tmp_df
+head(tmp_df)
 grid.newpage()
 grid.polygon(
     tmp_df$x, tmp_df$y,
@@ -25,7 +25,7 @@ grid.polygon(
 
 ## ---- fig.width=3, fig.height=3-----------------------------------------------
 tmp_df <- sector_df(x = 0.5, y = 0.5, theta = 25, r = 0.4, start = 50, r_start = 0.2)
-tmp_df
+head(tmp_df)
 grid.newpage()
 grid.polygon(
     tmp_df$x, tmp_df$y,
@@ -37,7 +37,7 @@ tmp_df <- sector_df(
     x = 0.5, y = 0.5, theta = 180, r = 0.4,
     start = 90, r_start = 0, type = "degree"
 )
-tmp_df
+head(tmp_df)
 grid.newpage()
 grid.polygon(
     tmp_df$x, tmp_df$y,
@@ -49,7 +49,7 @@ tmp_df <- sector_df(
     x = 0.5, y = 0.5, theta = 180, r = 0.4,
     start = 270, r_start = 0.2, type = "degree"
 )
-tmp_df
+head(tmp_df)
 grid.newpage()
 grid.polygon(
     tmp_df$x, tmp_df$y,
@@ -65,7 +65,7 @@ tmp_df <- sector_df_multiple(
     r_start = c(0, 0.05, 0.1),
     type = "percent"
 )
-tmp_df
+head(tmp_df)
 grid.newpage()
 grid.polygon(
     tmp_df$x,
@@ -80,8 +80,8 @@ grid.polygon(
 ## ---- fig.width=5, fig.height=4-----------------------------------------------
 grid.newpage()
 gp <- sectorGrob(
-    x = unit(c(3, 9, 15), "cm"),
-    y = unit(c(5, 9, 15), "cm"),
+    x = unit(c(3, 7, 11), "cm"),
+    y = unit(c(3, 7, 11), "cm"),
     theta = c(90, 180, 270),
     r = 1,
     start = c(180, 180, 270),
