@@ -4,13 +4,13 @@
 
 ```{r check}
 devtools::document(roclets = c("rd", "collate", "namespace"))
-devtools::check()     # 快捷键：Ctrl + Shift + E 
-devtools::load_all()  # 快捷键：Ctrl + Shift + L 
+devtools::check() # 快捷键：Ctrl + Shift + E
+devtools::load_all() # 快捷键：Ctrl + Shift + L
 devtools::unload()
 # devtools::build_vignettes()
 devtools::build()
 ## check for cran
-rhub::validate_email(email = "yanpd01@gmail.com", token ="6f28055d6e6e42ba80edae8641e6d9dc")
+rhub::validate_email(email = "yanpd01@gmail.com", token = "6f28055d6e6e42ba80edae8641e6d9dc")
 devtools::check_rhub()
 ```
 
@@ -18,7 +18,7 @@ devtools::check_rhub()
 ## git common -----------------------------------------------------
 git add .
 git commit -m "fix yyread" # 将文件提交到本地仓库
-git push -u origin master  ## push the develop repos 
+git push -u origin main  ## push the develop repos 
 git tag V0.0.5.1
 git push origin V0.0.5.1
 git commit --amend       ## 修改注释
@@ -89,7 +89,7 @@ usethis::create_package("ggsector")
 '
 Title: Draw sector in R
 Version: 0.5.0
-Authors@R: 
+Authors@R:
     person(given = "Pengdong",
            family = "Yan",
            role = c("aut", "cre"),
@@ -116,7 +116,7 @@ use_data(its) ## 先将本地数据导入 R 中变量，然后用这个函数将
 use_r("data") ## 为数据编写R文件
 
 # add depends
-use_package("magrittr") 
+use_package("magrittr")
 
 
 ## 3、annotation --------------------------------------------------------------
