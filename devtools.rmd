@@ -7,7 +7,7 @@ devtools::document(roclets = c("rd", "collate", "namespace"))
 devtools::check() # 快捷键：Ctrl + Shift + E
 devtools::load_all() # 快捷键：Ctrl + Shift + L
 devtools::unload()
-# devtools::build_vignettes()
+devtools::build_vignettes()
 devtools::build()
 ## check for cran
 # rhub::validate_email(email = "yanpd01@gmail.com", token = "6f28055d6e6e42ba80edae8641e6d9dc")

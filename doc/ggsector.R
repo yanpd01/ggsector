@@ -1,5 +1,6 @@
 ## ---- include = FALSE---------------------------------------------------------
 knitr::opts_chunk$set(
+    tidy = FALSE,
     collapse = TRUE,
     comment = "#>",
     fig.width = 8,
@@ -80,8 +81,8 @@ grid.polygon(
 ## ---- fig.width=5, fig.height=4-----------------------------------------------
 grid.newpage()
 gp <- sectorGrob(
-    x = unit(c(3, 7, 11), "cm"),
-    y = unit(c(3, 7, 11), "cm"),
+    x = unit(c(3, 5, 7), "cm"),
+    y = unit(c(3, 5, 7), "cm"),
     theta = c(90, 180, 270),
     r = 1,
     start = c(180, 180, 270),
@@ -246,7 +247,10 @@ ggplot(t1) +
 #  ## Download pbmc data from
 #  # https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz
 #  pbmc.data <- Read10X(data.dir = "../filtered_gene_bc_matrices/hg19")
-#  pbmc <- CreateSeuratObject(counts = pbmc.data, project = "pbmc3k", min.cells = 3, min.features = 200)
+#  pbmc <- CreateSeuratObject(
+#      counts = pbmc.data, project = "pbmc3k",
+#      min.cells = 3, min.features = 200
+#  )
 #  pbmc <- NormalizeData(pbmc)
 #  pbmc <- FindVariableFeatures(pbmc, selection.method = "vst", nfeatures = 2000)
 #  pbmc <- ScaleData(pbmc, features = rownames(pbmc))

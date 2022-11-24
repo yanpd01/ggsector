@@ -2,17 +2,10 @@
 title: "ggsector"
 author: "Pengdong Yan"
 date: "`r Sys.Date()`"
-output:
-  prettydoc::html_pretty:
-    toc: true
-    theme: cayman
-    highlight: github
-  pdf_document:
-    toc: true
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{ggsector}
   %\VignetteEngine{knitr::rmarkdown}
-  %\usepackage[utf8]{inputenc}
   %\VignetteEncoding{UTF-8}
 ---
 
