@@ -12,11 +12,13 @@ output:
 vignette: >
   %\VignetteIndexEntry{ggsector}
   %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
   %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
+    tidy = FALSE,
     collapse = TRUE,
     comment = "#>",
     fig.width = 8,
@@ -172,7 +174,8 @@ mat <- abs(t0)
 mat[1:5, 1:5]
 ```
 
-Realized by modifying the [grid::viewport()] with cell_fun, the sector can be set with a fixed width and height
+Realized by modifying the [grid::viewport()] with cell_fun,
+the sector can be set with a fixed width and height
 
 ```{r}
 set.seed(1)
@@ -331,7 +334,10 @@ Readers are invited to download the data and try it out.
 ## Download pbmc data from
 # https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz
 pbmc.data <- Read10X(data.dir = "../filtered_gene_bc_matrices/hg19")
-pbmc <- CreateSeuratObject(counts = pbmc.data, project = "pbmc3k", min.cells = 3, min.features = 200)
+pbmc <- CreateSeuratObject(
+    counts = pbmc.data, project = "pbmc3k",
+    min.cells = 3, min.features = 200
+)
 pbmc <- NormalizeData(pbmc)
 pbmc <- FindVariableFeatures(pbmc, selection.method = "vst", nfeatures = 2000)
 pbmc <- ScaleData(pbmc, features = rownames(pbmc))

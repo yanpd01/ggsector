@@ -10,14 +10,15 @@ devtools::unload()
 # devtools::build_vignettes()
 devtools::build()
 ## check for cran
-rhub::validate_email(email = "yanpd01@gmail.com", token = "6f28055d6e6e42ba80edae8641e6d9dc")
+# rhub::validate_email(email = "yanpd01@gmail.com", token = "6f28055d6e6e42ba80edae8641e6d9dc")
 devtools::check_rhub()
+devtools::check_rhub(env_vars = c(R_COMPILE_AND_INSTALL_PACKAGES = "always"))
 ```
 
 ```{bash git}
 ## git common -----------------------------------------------------
 git add .
-git commit -m "fix yyread" # 将文件提交到本地仓库
+git commit -m "try fix vignette 0.5" # 将文件提交到本地仓库
 git push -u origin main  ## push the develop repos 
 git tag V0.0.5.1
 git push origin V0.0.5.1
@@ -25,7 +26,7 @@ git commit --amend       ## 修改注释
 
 ## init -----------------------------------------------------------
 git config --global user.name "Yan"
-git config --global user.email "yanpd01@qq.com"
+git config --global user.email "yanpd01@gmail.com"
 git config --global core.autocrlf false
 git config --global core.saftcrlf true
 
@@ -93,7 +94,7 @@ Authors@R:
     person(given = "Pengdong",
            family = "Yan",
            role = c("aut", "cre"),
-           email = "yanpd01@qq.com",
+           email = "yanpd01@gmail.com",
            comment = c(ORCID = "0000-0002-2425-7930"))
 Description: `ggsector` is an R package that can use `grid` or `ggplot` to easily draw sectors.
 License: Artistic-2.0

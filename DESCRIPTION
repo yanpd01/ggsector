@@ -15,9 +15,9 @@ RoxygenNote: 7.2.1
 Suggests: 
     ComplexHeatmap,
     knitr,
+    rmarkdown,
     prettydoc,
-    reshape2,
-    rmarkdown
+    reshape2
 Depends: 
     ggplot2,
     grid

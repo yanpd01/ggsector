@@ -9,3 +9,6 @@ magrittr::`%>%`
 #' @importFrom rlang %||%
 #' @export
 rlang::`%||%`
+
+# #' @importFrom prettydoc html_pretty
+# prettydoc::html_pretty

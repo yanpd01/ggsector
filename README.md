@@ -1,5 +1,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+    #> Warning: package 'badger' was built under R version 4.2.2
+
 # ggsector: Easily draw sectors with grid and ggplot2
 
 <!-- badges: start -->
@@ -41,13 +43,11 @@ Or the development version from github or gitee:
 # from github
 remotes::install_github(
     "yanpd01/ggsector",
-    dependencies = TRUE,
     build_vignettes = TRUE
 )
 # from gitee
 remotes::install_git(
     "https://gitee.com/yanpd01/ggsector",
-    dependencies = TRUE,
     build_vignettes = TRUE
 )
 ```
