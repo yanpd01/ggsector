@@ -1,0 +1,80 @@
+---
+output:
+  md_document:
+    variant: gfm
+html_preview: false
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    fig.path = "man/figures/README-",
+    out.width = "100%"
+)
+```
+
+```{r echo=FALSE, results="hide", message=FALSE}
+library("badger")
+```
+
+# ggsector: Easily draw sectors with grid and ggplot2
+
+<!-- badges: start -->
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+<!-- [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggsector)](https://cran.r-project.org/package=ggsector) -->
+`r badge_devel("yanpd01/ggsector", "green")`
+
+`r badger::badge_custom("platforms", "all", "green")`
+`r badger::badge_custom("Windows", "passing", "green")`
+`r badger::badge_custom("Linux", "passing", "green")`
+<!-- badges: end -->
+
+```{r comment="", echo=FALSE, results='asis'}
+cat(packageDescription("ggsector")$Description)
+```
+
+## :writing_hand: Authors
+
+Pengdong Yan
+
+
+
+## :arrow_double_down: Installation
+
+Get the released version from Cran:
+
+```{r, eval = FALSE}
+## The new version of the R package is still under review.
+## If you want to try it out, you can use the following github method to install it
+install.packages("ggsector")
+```
+
+Or the development version from github or gitee:
+
+```{r, eval = FALSE}
+## install.packages("remotes")
+# from github
+remotes::install_github("yanpd01/ggsector")
+# from gitee
+remotes::install_git("https://gitee.com/yanpd01/ggsector")
+```
+
+
+##  :books: Usage
+
+For the usage of this R package, please type `vignette("ggsector")` after installation to view it.
+There are detailed case descriptions in it.
+
+
+## :sparkling_heart: Acknowledgments
+
+The code of this R package refers to [jjplot](https://github.com/junjunlab/jjPlot) of [JunJunLao](https://github.com/junjunlab) and [ggplot2](https://github.com/tidyverse/ggplot2) of [Hadley](https://github.com/hadley).
+
+The Description, vignette, and readme of this R package refer to [clusterProfiler](https://github.com/YuLab-SMU/clusterProfiler), [ggfun](https://github.com/YuLab-SMU/ggfun), and [treeio](https://github.com/YuLab-SMU/treeio) of [Guangchuang YU](https://github.com/YuLab-SMU/).
+
+Here, I would like to express my highest respect to thank the big guys for their open source spirit.
+
+

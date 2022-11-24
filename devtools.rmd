@@ -4,11 +4,14 @@
 
 ```{r check}
 devtools::document(roclets = c("rd", "collate", "namespace"))
-devtools::check()
-devtools::check_rhub()
-devtools::load_all()
+devtools::check()     # 快捷键：Ctrl + Shift + E 
+devtools::load_all()  # 快捷键：Ctrl + Shift + L 
 devtools::unload()
+# devtools::build_vignettes()
 devtools::build()
+## check for cran
+rhub::validate_email(email = "yanpd01@gmail.com", token ="6f28055d6e6e42ba80edae8641e6d9dc")
+devtools::check_rhub()
 ```
 
 ```{bash git}
@@ -23,6 +26,9 @@ git commit --amend       ## 修改注释
 ## init -----------------------------------------------------------
 git config --global user.name "Yan"
 git config --global user.email "yanpd01@qq.com"
+git config --global core.autocrlf false
+git config --global core.saftcrlf true
+
 
 git init
 git add .
@@ -30,7 +36,7 @@ git commit -m "creat pkg"
 git branch -M main
 git remote add origin https://github.com/yanpd01/ggsector.git
 git remote set-url --add  origin https://gitee.com/yanpd01/ggsector.git
-git push -u origin main
+git push -u  -f origin main
 
 
 ## branch --------------------------------------------------------
@@ -78,13 +84,40 @@ devtools::has_devel()
 ## 1、create pkg project -------------------------------------------------------
 usethis::create_package("ggsector")
 
-## 2、open the pkg dir; open the pkg project, write functions ------------------
+## 2、open the pkg dir, add detail
+# Add、Title、Authors、Description、License
+'
+Title: Draw sector in R
+Version: 0.5.0
+Authors@R: 
+    person(given = "Pengdong",
+           family = "Yan",
+           role = c("aut", "cre"),
+           email = "yanpd01@qq.com",
+           comment = c(ORCID = "0000-0002-2425-7930"))
+Description: `ggsector` is an R package that can use `grid` or `ggplot` to easily draw sectors.
+License: Artistic-2.0
+'
+# library
 library(devtools)
 library(roxygen2)
-usethis::use_r("reexport") ## 导入和导出
-usethis::use_r("function") ## 编写功能
-usethis::use_data(its) ## 先将本地数据导入 R 中变量，然后用这个函数将数据导入到包中
-usethis::use_r("data") ## 为数据编写R文件
+library(usethis)
+
+# add document
+use_readme_rmd()
+use_vignette("ggsector")
+
+# add R file
+use_r("reexport") ## 导入和导出
+use_r("function") ## 编写功能
+
+# add data
+use_data(its) ## 先将本地数据导入 R 中变量，然后用这个函数将数据导入到包中
+use_r("data") ## 为数据编写R文件
+
+# add depends
+use_package("magrittr") 
+
 
 ## 3、annotation --------------------------------------------------------------
 yourname <- function() {
@@ -92,14 +125,7 @@ yourname <- function() {
 }
 devtools::document() ## 转义注释
 
-## 4、write the import depend  -------------------------------------------------
-usethis::use_package("magrittr") ## 第二个选项默认为 import
-
-## 5、description --------------------------------------------------------------
-person() ## ## 直接在 description 文件中修改标题，描述，作者
-usethis::use_gpl3_license()
-
-## 6、load check and build -----------------------------------------------------
+## 4、load check and build -----------------------------------------------------
 devtools::load_all() ## 快捷键：Ctrl + Shift + L 相当于library，可以测试当前包
 devtools::unload() ##   前面加载的卸载
 

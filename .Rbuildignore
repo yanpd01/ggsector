@@ -4,3 +4,7 @@
 ^LICENSE.*$
 ^devtools.rmd$
 ^.*\.code-workspace$
+^LICENSE\.md$
+^README\.Rmd$
+^doc$
+^Meta$
