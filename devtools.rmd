@@ -12,14 +12,14 @@ devtools::build()
 ## check for cran
 # rhub::validate_email(email = "yanpd01@gmail.com", token = "6f28055d6e6e42ba80edae8641e6d9dc")
 devtools::check_rhub()
-devtools::check_rhub()
 devtools::check_rhub(env_vars = c(R_COMPILE_AND_INSTALL_PACKAGES = "always"))
 ```
 
 ```{bash git}
 ## git common -----------------------------------------------------
 git add .
-git commit -m "try fix vignette 0.5" # 将文件提交到本地仓库
+git commit -m "cran fix" # 将文件提交到本地仓库
+git push 
 git push -u origin main  ## push the develop repos 
 git tag V0.0.5.1
 git push origin V0.0.5.1

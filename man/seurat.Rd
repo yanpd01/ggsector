@@ -50,11 +50,18 @@ A better alternative to \code{\link[Seurat:DotPlot]{Seurat::DotPlot()}}.
 For more details, please type \code{vignette("ggsector")}.
 }
 \examples{
-\dontrun{
+\donttest{
 ## Download pbmc data from
 # https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz
 library(Seurat)
-pbmc.data <- Read10X(data.dir = "../filtered_gene_bc_matrices/hg19")
+path <- paste0(tempdir(), "/pbmc3k.tar.gz")
+file <- paste0(tempdir(), "/filtered_gene_bc_matrices/hg19")
+download.file(
+    "https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz",
+    path
+)
+untar(path, exdir = tempdir())
+pbmc.data <- Read10X(data.dir = file)
 pbmc <- CreateSeuratObject(
     counts = pbmc.data,
     project = "pbmc3k",
@@ -67,7 +74,7 @@ pbmc <- ScaleData(pbmc, features = rownames(pbmc))
 pbmc <- RunPCA(pbmc)
 pbmc <- RunUMAP(pbmc, dim = 1:10)
 pbmc <- FindNeighbors(pbmc, dims = 1:10)
-pbmc <- FindClusters(pbmc, resolution = 0.5)
+pbmc <- FindClusters(pbmc, resolution = c(0.3, 1, 0.5))
 markers <- tibble::tribble(
     ~type, ~marker,
     "Naive CD4+ T", "IL7R,CCR7",
@@ -86,6 +93,7 @@ markers <- tibble::tribble(
 DotPlot(pbmc, features = unique(markers$marker)) + coord_flip()
 # contrast with DotPlot
 SectorPlot(pbmc, markers$marker, features_level = unique(rev(markers$marker)))
+SectorPlot(pbmc, markers$marker, group.by = "RNA_snn_res.1")
 }
 
 }
