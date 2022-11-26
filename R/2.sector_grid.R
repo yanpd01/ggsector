@@ -11,6 +11,7 @@
 #' @return polygon grob
 #'
 #' @examples
+#' \donttest{
 #' ## Draw basic grid
 #'
 #' # sectorGrob with units of "cm" and type of "degree"
@@ -136,6 +137,7 @@
 #'     width = unit(.7, "snpc"),
 #'     height = unit(.7, "snpc")
 #' )
+#' }
 #'
 #' @export
 sectorGrob <- function(x = 0.5,
