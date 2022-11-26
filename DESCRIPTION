@@ -16,7 +16,8 @@ Suggests:
     ComplexHeatmap,
     knitr,
     rmarkdown,
-    reshape2
+    reshape2,
+    utils
 Depends: 
     ggplot2,
     grid
