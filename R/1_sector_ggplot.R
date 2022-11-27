@@ -168,7 +168,7 @@ GeomSectorIndividual <- ggproto(
 #' @rdname geom_sector
 #'
 #' @inheritParams ggplot2::geom_point
-#' @param individual Logical, default is FALSE.
+#' @param individual Logical, default is TRUE.
 #' When "individual=FALSE", draw very quickly with a vector form,
 #' when "individual=TRUE", draw individually at a slower speed.
 #' Vector form cannot control the deformation of the sector, you need to add coord_fixed()
@@ -227,7 +227,7 @@ geom_sector <- function(mapping = NULL, data = NULL,
                         na.rm = FALSE,
                         show.legend = NA,
                         inherit.aes = TRUE,
-                        individual = FALSE,
+                        individual = TRUE,
                         verbose = TRUE
                         #
 ) {

@@ -3,6 +3,7 @@
 ^\.Rhistory
 ^LICENSE.*$
 ^devtools.rmd$
+^examples.rmd$
 ^.*\.code-workspace$
 ^LICENSE\.md$
 ^README\.Rmd$

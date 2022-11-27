@@ -10,5 +10,6 @@ magrittr::`%>%`
 #' @export
 rlang::`%||%`
 
-# #' @importFrom prettydoc html_pretty
-# prettydoc::html_pretty
+#' @importFrom prettydoc html_pretty
+#' @export
+prettydoc::html_pretty

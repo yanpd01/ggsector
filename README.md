@@ -8,7 +8,7 @@
 state and is being actively
 developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 <!-- [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggsector)](https://cran.r-project.org/package=ggsector) -->
-[![](https://img.shields.io/badge/devel%20version-1.5.5-green.svg)](https://github.com/yanpd01/ggsector)
+[![](https://img.shields.io/badge/devel%20version-1.6.0-green.svg)](https://github.com/yanpd01/ggsector)
 
 ![](https://img.shields.io/badge/platforms-all-green.svg)
 ![](https://img.shields.io/badge/Windows-passing-green.svg)
@@ -55,6 +55,8 @@ remotes::install_git(
 For the usage of this R package, please type `vignette("ggsector")`
 after installation to view it. There are detailed case descriptions in
 it.
+
+Or view the [examples](examples.rmd).
 
 ## :sparkling_heart: Acknowledgments
 

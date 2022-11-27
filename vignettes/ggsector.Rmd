@@ -2,10 +2,17 @@
 title: "ggsector"
 author: "Pengdong Yan"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+  prettydoc::html_pretty:
+    toc: true
+    theme: cayman
+    highlight: github
+  pdf_document:
+    toc: true
 vignette: >
   %\VignetteIndexEntry{ggsector}
   %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -228,7 +235,7 @@ Heatmap(
 )
 ```
 
-Realized With layer full
+Realized With layer fun
 
 ```{r}
 # The input matrix needs to be extracted with pindex(mat, i, j)
