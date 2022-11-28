@@ -48,7 +48,12 @@ if 'type = "degree"', the input is an angle(0-360).}
 
 \item{r_start}{Numeric, radius of the inner circle of the sector(0-r).}
 
-\item{type}{"percent" or "degree".}
+\item{type}{"percent", "degree" or an integer (preferably greater than 50),
+represents the number of scattered points on the circle where the sector is drawn.
+When type = "percent", the circumference of the circle where the sector is
+located is composed of 100 scattered points;
+when type = "degree", the circumference of the circle where the sector is
+located is composed of 360 scattered points}
 
 \item{group}{The id provided when drawing a sector with \code{\link[grid:grid.polygon]{grid::polygonGrob()}}.
 If missing, it will be automatically added as a number.}

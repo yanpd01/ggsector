@@ -94,48 +94,81 @@ For more details, please type \code{vignette("ggsector")}.
 }
 \examples{
 \donttest{
-library(magrittr)
-# prepare data
-set.seed(1)
-t0 <- cor(mtcars) \%>\%
-    set_colnames(paste("y_", colnames(.))) \%>\%
-    set_rownames(paste("x_", rownames(.)))
-t1 <- t0 \%>\%
-    reshape2::melt()
-t1$group <- sample(letters[1:5], nrow(t1), TRUE)
-t1$r <- sample(c(0.24, 0.48), nrow(t1), TRUE)
-t1$start <- runif(nrow(t1), max = 50)
-t1$r_start <- sample(c(0, 0.08, 0.16), nrow(t1), TRUE)
-t1$v <- abs(t1$value)
-head(t1)
-# plot with type of "percent"
-ggplot(t1) +
-    aes(x = Var1, y = Var2, theta = v * 100) +
-    geom_sector(
-        aes(fill = group, r = r, start = start, r_start = r_start),
-        color = "transparent"
-    ) +
-    theme_bw()
-# plot with type of "degree" and coord_fixed()
-ggplot(t1) +
-    aes(x = Var1, y = Var2, theta = v * 360) +
-    geom_sector(
-        aes(fill = group, r = r, start = start * 3.6, r_start = r_start),
-        color = "transparent",
-        type = "degree"
-    ) +
-    coord_fixed() +
-    theme_bw()
+# prepare
+library(ggsector)
+library(reshape2)
+df <- cor(mtcars)[1:3, 1:5] \%>\%
+    abs() \%>\%
+    melt(varnames = c("x", "y"))
 
-# draw individually
-ggplot(t1) +
-    aes(x = Var1, y = Var2, theta = v * 100, r_start = r_start) +
+# individual
+ggplot(df) +
+    geom_sector(aes(x, y), theta = 75, fill = 2, individual = FALSE) +
+    theme_bw() +
+    theme(axis.title = element_blank())
+ggplot(df) +
+    geom_sector(aes(x, y), theta = 75, fill = 2, individual = FALSE) +
+    coord_fixed(ratio = 3 / 5) +
+    theme_bw() +
+    theme(axis.title = element_blank())
+ggplot(df) +
+    geom_sector(aes(x, y), theta = 75, fill = 2, individual = TRUE) +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+# theta
+ggplot(df) +
+    ## type = "percent", theta = 0-100
     geom_sector(
-        aes(fill = group, r = r, start = start),
-        color = "transparent",
+        aes(y, x, theta = value * 100),
+        type = "percent",
+        color = "blue",
         individual = TRUE
     ) +
-    theme_bw()
+    ## type = "degree", theta = 0-360
+    geom_sector(
+        aes(y, x, theta = value * 360),
+        type = "degree",
+        color = "red",
+        alpha = 0.5,
+        individual = TRUE
+    ) +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+# r
+ggplot(df) +
+    geom_sector(
+        aes(y, x, theta = value * 100),
+        r = rep(c(0.15, 0.3, 0.45), 5),
+        fill = 2,
+        individual = TRUE
+    ) +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+# start
+ggplot(df) +
+    geom_sector(
+        aes(y, x, theta = value * 100),
+        start = rep(c(60, 40, 20), 5),
+        fill = 2,
+        individual = TRUE
+    ) +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+# r_start
+ggplot(df) +
+    geom_sector(
+        aes(y, x, theta = value * 100),
+        r_start = rep(c(0.15, 0.25, 0.35), 5),
+        fill = 2,
+        individual = TRUE
+    ) +
+    theme_bw() +
+    theme(axis.title = element_blank())
 }
+
 }
 \keyword{datasets}

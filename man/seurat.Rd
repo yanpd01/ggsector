@@ -74,7 +74,8 @@ pbmc <- ScaleData(pbmc, features = rownames(pbmc))
 pbmc <- RunPCA(pbmc)
 pbmc <- RunUMAP(pbmc, dim = 1:10)
 pbmc <- FindNeighbors(pbmc, dims = 1:10)
-pbmc <- FindClusters(pbmc, resolution = c(0.3, 1, 0.5))
+pbmc <- FindClusters(pbmc, resolution = 1)
+pbmc <- FindClusters(pbmc, resolution = 0.5)
 markers <- tibble::tribble(
     ~type, ~marker,
     "Naive CD4+ T", "IL7R,CCR7",

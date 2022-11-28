@@ -1,29 +1,32 @@
-## 写在最前
+### 写在最前
 
-ggsector是本人的第二个R包了，但是却是本人第一个面向公众的R包，
-本包主要作用为在ggplot2、grid中可以轻易的绘制扇形。
-在写这个包的过程中，笔者最先参考了J叔“老俊俊”的jjpie，随后参考了Hadley大佬的ggplot2代码，
-在本R包接近完成之际，笔者参考了Y叔“余光创”老师的ggfun、treeio等包中DESCRIPTION、 vignette、readme的写法。
-总之，本R包也是站在巨人的肩膀上才有的成果，感谢以上大佬。
+**ggsector**是本人的第二个R包，也是本人第一个面向公众的R包。
+**ggsector**主要提供可以在ggplot2、grid中轻易绘制扇形的函数。<br>
+在写**ggsector**的过程中，笔者最先参考了J叔“老俊俊”的jjpie，随后参考了Hadley大佬的geom_point，
+最后在**ggsector**接近完成之际，笔者参考了Y叔“余光创”老师的ggfun、treeio等包中DESCRIPTION、 vignette、readme的写法。<br>
+总之，**ggsector**是站在巨人的肩膀上才有的成果，感谢以上大佬。
 
-## R包安装
+### R包安装
 
-目前本包暂时只能通过github来下载，地址为https://github.com/yanpd01/ggsector，
-下载命令为`remotes::install_github("yanpd01/ggsector")`，
-网不好的读者也可以通过gitee安装`remotes::install_git("https://gitee.com/yanpd01/ggsector")`
+目前**ggsector**只能通过github来下载，地址为：<br>
+https://github.com/yanpd01/ggsector<br>
+下载命令如下：
 
-小小吐槽一下，CRAN审核好严格啊，从标题到描述、还有各种案列的使用，都审核的好仔细，
+```{r}
+# github
+remotes::install_github("yanpd01/ggsector")
+# gitee
+remotes::install_git("https://gitee.com/yanpd01/ggsector")
+```
+小小吐槽一下，CRAN审核好严格啊，从标题到描述、还有各种案例的使用，都审核的好仔细，
 笔者至今还在与CRAN审核斗智斗勇，期待早日上架。
 
 
-## ggplot的使用案列
+### ggplot中的使用案例
 
-展示每个参数的含义，以及对应的用法
+在ggplot2中使用**ggsector**非常简单，只需要使用geom_sector即可，参数中去除常规的x、y、fill、color外，还有其他几个可以高度自定义的参数。请看以下案例：
 
-在ggplot2中使用ggsector非常简单，只需要使用geom_sector即可，美学映射
-aes()中去除常规的x、y、fill、color外，还有其他几个可以高度自定义的参数。
-
-### 准备阶段
+#### 准备阶段
 ```{r}
 ## 加载R包
 library(ggsector)
@@ -34,10 +37,10 @@ df <- cor(mtcars)[1:3, 1:5] %>%
     melt(varnames = c("x", "y"))
 ```
 
-### individual
-默认为TRUE，主要控制是以向量的形式在画板上整体出图，还是以单个坐标点进行逐个扇形的绘制，
-individual = FALSE 时，以向量形式作图，速度较快，但是需要搭配coord_fixed()来锁定画板长宽比，不然扇形会形变，
-individual = TRUE 时，逐个绘图，扇形不会形变，但是当绘制的扇形过多时，整体绘制速度会慢很多。
+#### individual
+默认为TRUE，主要是控制，以单个坐标点进行逐个扇形的绘制还是以向量的形式在画板上整体绘制。<br>
+individual = TRUE 时，逐个绘图，扇形不会形变，但是当绘制的扇形过多时，整体绘制速度会慢很多。<br>
+individual = FALSE 时，以向量形式作图，速度较快，但是需要搭配coord_fixed()来锁定画板长宽比，不然扇形会形变。<br>
 案例：
 ```{r}
 ggplot(df) +
@@ -54,12 +57,15 @@ ggplot(df) +
     theme_bw() +
     theme(axis.title = element_blank())
 ```
-### theta
 
-扇形角度参数，与type参数结合使用，type参数默认为 "percent",
-当type = "percent"时，完整的圆周为100个散点组成的多边形，theta取值0-100。
-当type = "degree"时，完整的圆周为360个散点组成的多边形，theta取值0-360。
-以下为案列：
+
+
+#### theta
+
+扇形角度参数，与type参数结合使用，type参数默认为 "percent"。<br>
+当type = "percent"时，完整的圆周为100个散点组成的多边形，theta取值0-100。<br>
+当type = "degree"时，完整的圆周为360个散点组成的多边形，theta取值0-360。<br>
+案例：
 
 ```{r}
 ggplot(df) +
@@ -82,20 +88,23 @@ ggplot(df) +
     theme(axis.title = element_blank())
 ```
 
-观察这个图里圈起来的地方（这里展示的可能不是很清楚，但读者可自行运行尝试），
-便能发现，两种模式下的扇形并没有完全的重合在一起，这是因为
-type = "percent"时，圆周为100个散点，输入的数值会被round()为0-100的整数，
-type = "degree"时，圆周为360个散点，输入的数值会被round()为0-360的整数，
-圆周点数越多，精度越高，但需要注意的是，越多的散点也意味着越慢的绘图速度，
+
+
+观察这个图里圈起来的地方（这里展示的可能不是很清楚，但观众老爷可自行运行尝试），
+便能发现:<br><br>
+两种模式下的扇形并没有完全的重合在一起，这是因为:<br>
+type = "percent"时，圆周为100个散点，输入的数值会被round()为0-100的整数，<br>
+type = "degree"时，圆周为360个散点，输入的数值会被round()为0-360的整数，<br>
+圆周点数越多，精度越高，但也意味着越慢的绘图速度。<br><br>
 笔者这里暂时只提供这两种模式，
 后续会提供自定义圆周散点数目的功能，
 敬请期待！
 
 
-### r
+#### r
 
-扇形半径参数，r = 0.5为恰好充满整个小方格，默认r为0.45,
-以下为不同半径的案列
+扇形半径参数，r = 0.5为恰好充满整个小方格，默认r为0.45。<br>
+案例:
 
 ```{r}
 ggplot(df) +
@@ -109,7 +118,9 @@ ggplot(df) +
     theme(axis.title = element_blank())
 ```
 
-### start
+
+
+#### start
 
 扇形起始角度参数，参数取值受type影响，取值范围与theta一致，默认为0，
 表示以y轴正上方为起点，绘制扇形，以下为不同起始角度的展示
@@ -125,6 +136,8 @@ ggplot(df) +
     theme_bw() +
     theme(axis.title = element_blank())
 ```
+
+
 
 ### r_start
 
@@ -144,15 +157,17 @@ ggplot(df) +
 ```
 
 
-## 来点底层的
 
-本R包并不是只能在ggplot中调用，本包的底层从grid写起，也为直接调用grid画扇形提供了方便
+### 来点底层的
 
-### sectorGrob
+**ggsector**并不是只能在ggplot中调用，本包的底层从grid写起，也为直接调用grid画扇形提供了方便。
 
-参数与ggplot2中，一模一样，笔者可以自行尝试
+
+
+sectorGrob、grid.sector参数与ggplot2中，一模一样，观众老爷可以自行尝试
 
 ```{r}
+### sectorGrob
 grid.newpage()
 gp <- sectorGrob(
     x = c(0.3, 0.5, 0.7),
@@ -166,12 +181,8 @@ gp <- sectorGrob(
     gp = gpar(fill = c("green", "red", "blue"))
 )
 grid.draw(gp)
-```
-
 
 ### grid.sector
-
-```{r}
 grid.newpage()
 grid.sector(
     x = c(0.1, 0.5, 0.9),
@@ -188,16 +199,16 @@ grid.sector(
 ```
 
 
-## 来点进阶的
 
-### 与ComplexHeatmap对接
+### 来点进阶的
 
-有三种方式，最终呈现结果基本一致，此处只配一幅图。
-（不一致的地方是因为本案例中使用了runif()随机数，
-而ComplexHeatmap中cell_fun与layer_fun调用方式也不一样，所以呈现出前两幅图一模一样，第三幅不一样）
+#### 与ComplexHeatmap对接
+
+**ggsector**与ComplexHeatmap对接有三种方式，由于最终呈现结果基本一致，此处只配一幅图。<br>
+（不一致的地方是因为本案例中使用了runif()随机数，加之cell_fun与layer_fun调用方式也不一样，所以呈现出前两幅图一模一样，第三幅不一样）
 
 
-#### 准备数据
+##### 准备数据
 ```{r}
 library(magrittr)
 library(ComplexHeatmap)
@@ -209,7 +220,7 @@ mat[1:5, 1:5]
 ```
 
 
-#### 方式一： cell_fun + viewport
+##### 方式一： cell_fun + viewport
 
 ```{r}
 set.seed(1)
@@ -237,7 +248,7 @@ Heatmap(
 ```
 
 
-#### 方式二： cell_fun + x，y坐标
+##### 方式二： cell_fun + x，y坐标
 
 ```{r}
 set.seed(1)
@@ -267,7 +278,7 @@ Heatmap(
 )
 ```
 
-#### 方式三： layer_fun + x，y坐标
+##### 方式三： layer_fun + x，y坐标
 
 ```{r}
 set.seed(1)
@@ -299,16 +310,18 @@ Heatmap(
 
 
 
-### 与Seutar对接
 
-笔者之前只想看看某个基因在某个细胞type中的表达情况（百分比与表达值），
-Seurat自带的DotPlot能满足我一些需求，但又不是很直观，恰逢笔者写出来了ggsector，便正好对接一下。
-以下以pmnc3K数据为例。
 
-这里SectorPlot()函数，笔者就不仔细介绍了，感兴趣的小伙伴可以自行研究。
+#### 与Seurat对接
+
+笔者之前进行单细胞分析的时候，只想看看某个基因在某个细胞类型中的表达情况（百分比与表达值），
+Seurat自带的DotPlot能满足我一些需求，但又不是很直观，恰逢**ggsector**诞生，便正好对接一下。<br>
+这里的SectorPlot()函数，笔者就不仔细介绍了，感兴趣的小伙伴可以自行研究。<br>
+以下以pmnc3K数据为例：
 
 ```{r}
 library(Seurat)
+library(tibble)
 path <- paste0(tempdir(), "/pbmc3k.tar.gz")
 file <- paste0(tempdir(), "/filtered_gene_bc_matrices/hg19")
 download.file(
@@ -354,9 +367,68 @@ SectorPlot(
 ```
 
 
+
+
+
+### 写在最后
+
+**ggsector**的基本雏形就是这样了，当然本人后续还有一些其他打算，比如<br>
+1.自定义圆周散点数，增加扇形的精度,<br>
+2.在扇形的基础上尝试一下物种组成百分比的pie。<br><br>
+总之使用过程中观众老爷们有何问题，
+可以在我的github中<br>
+https://github.com/yanpd01/ggsector/issues<br>
+留下你的issues，中英文提问都可以的。
+
+新人上路，请大家多多支持。
+
 ## 最后
 
 这个包的基本雏形就是这样了，当然本人后续还有一些其他打算，比如自定义圆周点数，
 在扇形的基础上尝试一下物种组成百分比的pie，当然这些还需要一点时间来打磨。
 总是使用过程中观众老爷们有何问题，
 可以在我的github(https://github.com/yanpd01/ggsector/issues)留下你的issues，中英文提问都可以。
+
+
+
+### 封面
+```{r}
+p1 <- ggplot(df) +
+    geom_sector(aes(y, x), theta = 75, fill = 1:15, individual = TRUE) +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+p2 <- ggplot(df) +
+    geom_sector(
+        aes(y, x, theta = value * 100),
+        r = rep(c(0.15, 0.3, 0.45), 5),
+        fill = 1:15,
+        color = 15:1,
+        individual = TRUE
+    ) +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+p3 <- ggplot(df) +
+    geom_sector(
+        aes(y, x, theta = value * 100),
+        start = rep(c(60, 40, 20), 5),
+        fill = 1:15,
+        individual = TRUE
+    ) +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+p4 <- ggplot(df) +
+    geom_sector(
+        aes(y, x, theta = value * 100),
+        r_start = rep(c(0.15, 0.25, 0.35), 5),
+        fill = 1:15,
+        individual = TRUE
+    ) +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+(p1 + p2) / (p3 + p4) &
+    theme(axis.text = element_blank(), axis.ticks = element_blank())
+```

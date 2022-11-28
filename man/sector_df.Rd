@@ -12,7 +12,7 @@ sector_df(
   r = 0.5,
   start = 0,
   r_start = 0,
-  type = c("percent", "degree")
+  type = "percent"
 )
 
 sector_df_multiple(
@@ -41,7 +41,12 @@ if 'type = "degree"', the input is an angle(0-360).}
 
 \item{r_start}{Numeric, radius of the inner circle of the sector(0-r).}
 
-\item{type}{"percent" or "degree".}
+\item{type}{"percent", "degree" or an integer (preferably greater than 50),
+represents the number of scattered points on the circle where the sector is drawn.
+When type = "percent", the circumference of the circle where the sector is
+located is composed of 100 scattered points;
+when type = "degree", the circumference of the circle where the sector is
+located is composed of 360 scattered points}
 
 \item{group}{The id provided when drawing a sector with \code{\link[grid:grid.polygon]{grid::polygonGrob()}}.
 If missing, it will be automatically added as a number.}
@@ -61,6 +66,13 @@ and a sector coordinate is returned.
 
 \code{\link[=sector_df_multiple]{sector_df_multiple()}} Each parameter can pass in multiple values,
 and return multiple sector coordinates
+
+The value of the 'type' parameter is "percent", "degree" or an integer (preferably greater than 50),
+represents the number of scattered points on the circle where the sector is drawn.
+When type = "percent", the circumference of the circle where the sector is
+located is composed of 100 scattered points;
+when type = "degree", the circumference of the circle where the sector is
+located is composed of 360 scattered points
 
 For more details, please type \code{vignette("ggsector")}.
 }
@@ -107,7 +119,7 @@ grid.polygon(
     vp = viewport(height = unit(1, "snpc"), width = unit(1, "snpc"))
 )
 
-# Coordinates of Multiple Sectors
+## Coordinates of Multiple Sectors
 tmp_df <- sector_df_multiple(
     x = c(0.2, 0.5, 0.8),
     theta = c(25, 50, 75),
@@ -115,6 +127,26 @@ tmp_df <- sector_df_multiple(
     start = c(75, 50, 100),
     r_start = c(0, 0.05, 0.1),
     type = "percent"
+)
+tmp_df
+grid.newpage()
+grid.polygon(
+    tmp_df$x,
+    tmp_df$y,
+    id = tmp_df$group,
+    vp = viewport(height = unit(1, "snpc"), width = unit(1, "snpc")),
+    gp = gpar(
+        fill = 3:1, col = 1:3
+    )
+)
+
+# type = 10, 100, 1000
+tmp_df <- sector_df_multiple(
+    x = c(0.25, 0.5, 0.75),
+    theta = c(7.5, 75, 750),
+    r = 0.125,
+    r_start = c(0.05),
+    type = c(c(10, "percent", 1000))
 )
 tmp_df
 grid.newpage()

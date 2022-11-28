@@ -7,6 +7,13 @@ sector_df_360 <- data.frame(
     x = round(sin(seq(0, 4 * pi, length.out = 721)), 10),
     y = round(cos(seq(0, 4 * pi, length.out = 721)), 10)
 )
+sector_df_custom <- function(n) {
+    data.frame(
+        x = round(sin(seq(0, 4 * pi, length.out = 2 * n + 1)), 10),
+        y = round(cos(seq(0, 4 * pi, length.out = 2 * n + 1)), 10)
+    )
+}
+
 
 
 #' sector coordinates
@@ -20,6 +27,13 @@ sector_df_360 <- data.frame(
 #' [sector_df_multiple()] Each parameter can pass in multiple values,
 #'  and return multiple sector coordinates
 #'
+#' The value of the 'type' parameter is "percent", "degree" or an integer (preferably greater than 50),
+#' represents the number of scattered points on the circle where the sector is drawn.
+#' When type = "percent", the circumference of the circle where the sector is
+#' located is composed of 100 scattered points;
+#' when type = "degree", the circumference of the circle where the sector is
+#' located is composed of 360 scattered points
+#'
 #' For more details, please type `vignette("ggsector")`.
 #'
 #' @rdname sector_df
@@ -31,7 +45,12 @@ sector_df_360 <- data.frame(
 #' @param r Numeric, radius of the outer circle of the sector(0-0.5).
 #' @param r_start Numeric, radius of the inner circle of the sector(0-r).
 #' @param start Numeric, starting angle of sector.
-#' @param type "percent" or "degree".
+#' @param type "percent", "degree" or an integer (preferably greater than 50),
+#' represents the number of scattered points on the circle where the sector is drawn.
+#' When type = "percent", the circumference of the circle where the sector is
+#' located is composed of 100 scattered points;
+#' when type = "degree", the circumference of the circle where the sector is
+#' located is composed of 360 scattered points
 #'
 #' @return coordinates of sector.
 #'
@@ -78,7 +97,7 @@ sector_df_360 <- data.frame(
 #'     vp = viewport(height = unit(1, "snpc"), width = unit(1, "snpc"))
 #' )
 #'
-#' # Coordinates of Multiple Sectors
+#' ## Coordinates of Multiple Sectors
 #' tmp_df <- sector_df_multiple(
 #'     x = c(0.2, 0.5, 0.8),
 #'     theta = c(25, 50, 75),
@@ -86,6 +105,26 @@ sector_df_360 <- data.frame(
 #'     start = c(75, 50, 100),
 #'     r_start = c(0, 0.05, 0.1),
 #'     type = "percent"
+#' )
+#' tmp_df
+#' grid.newpage()
+#' grid.polygon(
+#'     tmp_df$x,
+#'     tmp_df$y,
+#'     id = tmp_df$group,
+#'     vp = viewport(height = unit(1, "snpc"), width = unit(1, "snpc")),
+#'     gp = gpar(
+#'         fill = 3:1, col = 1:3
+#'     )
+#' )
+#'
+#' # type = 10, 100, 1000
+#' tmp_df <- sector_df_multiple(
+#'     x = c(0.25, 0.5, 0.75),
+#'     theta = c(7.5, 75, 750),
+#'     r = 0.125,
+#'     r_start = c(0.05),
+#'     type = c(c(10, "percent", 1000))
 #' )
 #' tmp_df
 #' grid.newpage()
@@ -106,46 +145,38 @@ sector_df <- function(x = 0.5,
                       r = 0.5,
                       start = 0,
                       r_start = 0,
-                      type = c("percent", "degree")
+                      type = "percent"
                       #
 ) {
-    type <- match.arg(type)
     if (type == "percent") {
-        if (theta < 0 || theta > 100) stop('The "percent" should be between [0-100]')
-        if (start < 0 || start > 100) stop('The "start of percent" should be between [0-100]')
-        if (r_start < 0 || r_start >= r) stop('The "r_start" should be between [0-r)')
-        theta <- round(theta)
-        df_in <- sector_df_100[(start + 1):(start + theta + 1), ] * r
-        if (r_start != 0) {
-            df_start <- sector_df_100[(start + 1):(start + theta + 1), ] * r_start
-            tmp_x <- c(df_in$x + x, rev(df_start$x + x))
-            tmp_y <- c(df_in$y + y, rev(df_start$y + y))
-        } else {
-            tmp_x <- c(x, df_in$x + x, x)
-            tmp_y <- c(y, df_in$y + y, y)
-        }
+        n <- 100
+        sector_df <- sector_df_100
+    } else if (type == "degree") {
+        n <- 360
+        sector_df <- sector_df_360
+    } else {
+        n <- round(as.numeric(type))
+        sector_df <- sector_df_custom(n)
     }
-    if (type == "degree") {
-        if (theta < 0 || theta > 360) stop('The "degree" should be between [0-360]')
-        if (start < 0 || start > 360) stop('The "start of degree" should be between [0-360]')
-        if (r_start < 0 || r_start >= r) stop('The "r_start" should be between [0-r)')
-        theta <- round(theta)
-        df_in <- sector_df_360[(start + 1):(start + theta + 1), ] * r
-        if (r_start != 0) {
-            df_start <- sector_df_360[(start + 1):(start + theta + 1), ] * r_start
-            tmp_x <- c(df_in$x + x, rev(df_start$x + x))
-            tmp_y <- c(df_in$y + y, rev(df_start$y + y))
-        } else {
-            tmp_x <- c(x, df_in$x + x, x)
-            tmp_y <- c(y, df_in$y + y, y)
-        }
+    if (theta < 0 || theta > n) stop(paste0('The "theta" should be between [0-', n, "]"))
+    if (start < 0 || start > n) stop(paste0('The "start of theta" should be between [0-', n, "]"))
+    if (r_start < 0 || r_start >= r) stop(paste0('The "r_start" should be between [0-', r, ")"))
+    theta <- round(theta)
+    df_in <- sector_df[(start + 1):(start + theta + 1), ] * r
+    if (r_start != 0) {
+        df_start <- sector_df[(start + 1):(start + theta + 1), ] * r_start
+        tmp_x <- c(df_in$x + x, rev(df_start$x + x))
+        tmp_y <- c(df_in$y + y, rev(df_start$y + y))
+    } else {
+        tmp_x <- c(x, df_in$x + x, x)
+        tmp_y <- c(y, df_in$y + y, y)
     }
     return(data.frame(x = tmp_x, y = tmp_y))
 }
 
 
 #' @rdname sector_df
-#' @param group The id provided when drawing a sector with [grid::polygonGrob()].
+#' @param group A numeric vector used to separate locations in x and y into multiple sectors.
 #' If missing, it will be automatically added as a number.
 #'
 #' @return  coordinates of sectors.

@@ -11,42 +11,55 @@
 #                                group
 #                                #
 # ) {
-#     df_in <- data.frame(
-#         x = x,
-#         y = y,
-#         theta = theta,
-#         r = r,
-#         start = start,
-#         r_start = r_start,
-#         type = type
-#     )
-
-#     if (missing(group)) group <- seq_len(nrow(df_in))
-#     if (length(group) != nrow(df_in)) stop("Variables should be of uniform length")
-
-#     out_list <- lapply(seq_len(nrow(df_in)), function(x) {
-#         df_tmp <- do.call(sector_df, df_in[x, ])
-#         df_tmp$group <- group[x]
-#         return(df_tmp)
-#     })
-#     out_df <- do.call(rbind, out_list)
-#     return(out_df)
+#     1
 # }
 
 # pie_df <- function(x = 0.5,
 #                    y = 0.5,
-#                    theta,
+#                    terms,
+#                    values = 1,
+#                    highlight = FALSE,
+#                    highlight_ratio = 0.1,
 #                    r = 0.5,
 #                    start = 0,
 #                    r_start = 0,
-#                    type = "percent",
-#                    group = 1:4
+#                    type = "percent"
 #                    #
 # ) {
+#     if (missing(terms)) terms <- seq_along(values)
+#     if (type == "percent") {
+#         n <- 100
+#     } else if (type == "degree") {
+#         n <- 360
+#     } else {
+#         n <- round(as.numeric(type))
 
+#     }
+#     v_sum <- sum(values)
+#     pct <- values / v_sum
+#     theta <- round(pct * n)
+#     start_in <- cumsum(c(start, theta[-length(theta)]))
+
+
+
+#     df_out <- sector_df_multiple(
+#         x = x,
+#         y = y,
+#         theta = theta,
+#         r = r,
+#         start = start_in,
+#         r_start = r_start,
+#         type = type,
+#         group = paste("a", x, y, seq_along(values), sep = ".")
+#     )
+#     return(df_out)
 # }
+# pie_df()
 
 
-# sector_df_multiple()
+# # 突出某个sector
+# # 从xy的坐标点上动手
+# # group_new=paste0（x，y，group）
 
-# # grid.newpage(); grid.sector(start = c(0, 25, 50, 75), theta = 25, gp = gpar(fill = 11:14))
+# # 颜色不用考虑，ggplot会帮我们搞定的
+# # 在grob中研究level，numic决定颜色，color就设置透明色或者黑色
