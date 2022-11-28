@@ -12,7 +12,8 @@ sector_df(
   r = 0.5,
   start = 0,
   r_start = 0,
-  type = "percent"
+  type = "percent",
+  ratio = 1
 )
 
 sector_df_multiple(
@@ -23,6 +24,7 @@ sector_df_multiple(
   start = 0,
   r_start = 0,
   type = "percent",
+  ratio = 1,
   group
 )
 }
@@ -43,12 +45,16 @@ if 'type = "degree"', the input is an angle(0-360).}
 
 \item{type}{"percent", "degree" or an integer (preferably greater than 50),
 represents the number of scattered points on the circle where the sector is drawn.
-When type = "percent", the circumference of the circle where the sector is
+When \code{type = "percent"}, the circumference of the circle where the sector is
 located is composed of 100 scattered points;
-when type = "degree", the circumference of the circle where the sector is
-located is composed of 360 scattered points}
+when \code{type = "degree"}, the circumference of the circle where the sector is
+located is composed of 360 scattered points;
+when \code{type = 150}, the circumference of the circle where the sector is
+located is composed of 150 scattered points.}
 
-\item{group}{The id provided when drawing a sector with \code{\link[grid:grid.polygon]{grid::polygonGrob()}}.
+\item{ratio}{aspect ratio, expressed as \code{y / x}.}
+
+\item{group}{A numeric vector used to separate locations in x and y into multiple sectors.
 If missing, it will be automatically added as a number.}
 }
 \value{
@@ -77,7 +83,6 @@ located is composed of 360 scattered points
 For more details, please type \code{vignette("ggsector")}.
 }
 \examples{
-\donttest{
 ## coordinates of single sector
 # type of percent, start = 0, r_start = 0
 tmp_df <- sector_df(x = 0.5, y = 0.5, theta = 25, r = 0.4, start = 0, r_start = 0)
@@ -159,5 +164,4 @@ grid.polygon(
         fill = 3:1, col = 1:3
     )
 )
-}
 }

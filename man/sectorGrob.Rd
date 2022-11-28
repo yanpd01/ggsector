@@ -13,6 +13,7 @@ sectorGrob(
   start = 0,
   r_start = 0,
   type = "percent",
+  ratio = 1,
   group,
   default.units = "npc",
   vp = viewport(height = unit(1, "snpc"), width = unit(1, "snpc")),
@@ -27,6 +28,7 @@ grid.sector(
   start = 0,
   r_start = 0,
   type = "percent",
+  ratio = 1,
   group,
   default.units = "npc",
   vp = viewport(height = unit(1, "snpc"), width = unit(1, "snpc")),
@@ -50,12 +52,16 @@ if 'type = "degree"', the input is an angle(0-360).}
 
 \item{type}{"percent", "degree" or an integer (preferably greater than 50),
 represents the number of scattered points on the circle where the sector is drawn.
-When type = "percent", the circumference of the circle where the sector is
+When \code{type = "percent"}, the circumference of the circle where the sector is
 located is composed of 100 scattered points;
-when type = "degree", the circumference of the circle where the sector is
-located is composed of 360 scattered points}
+when \code{type = "degree"}, the circumference of the circle where the sector is
+located is composed of 360 scattered points;
+when \code{type = 150}, the circumference of the circle where the sector is
+located is composed of 150 scattered points.}
 
-\item{group}{The id provided when drawing a sector with \code{\link[grid:grid.polygon]{grid::polygonGrob()}}.
+\item{ratio}{aspect ratio, expressed as \code{y / x}.}
+
+\item{group}{A numeric vector used to separate locations in x and y into multiple sectors.
 If missing, it will be automatically added as a number.}
 
 \item{default.units}{A string indicating the default units to use
@@ -78,7 +84,6 @@ draw sector
 For more details, please type \code{vignette("ggsector")}.
 }
 \examples{
-\donttest{
 ## Draw basic grid
 
 # sectorGrob with units of "cm" and type of "degree"
@@ -111,6 +116,7 @@ grid.sector(
     default.units = "npc"
 )
 
+\donttest{
 ## Draw sector with ComplexHeatmap
 
 # prepare data

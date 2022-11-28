@@ -84,16 +84,19 @@ When "individual=FALSE", draw very quickly with a vector form,
 when "individual=TRUE", draw individually at a slower speed.
 
 The required parameters in mapping are "x", "y", "theta", and
-the additional modifiable parameters are "r", "start", "r_start", "type", "colour", "fill".
+the additional modifiable parameters are "r", "start", "r_start", "type", "colour", "fill", "ratio", "size" for line size, "linetype".
 
 When r = 0.5, the sector just fills the square.
+
+The \code{ratio} parameter only works when \code{individual = FALSE}.
+When \code{ratio} is null, it will be auto calculated as
+length(unique(y)) / length(unique(x))
 
 For details, please check the \code{\link[=grid.sector]{grid.sector()}}.
 
 For more details, please type \code{vignette("ggsector")}.
 }
 \examples{
-\donttest{
 # prepare
 library(ggsector)
 library(reshape2)
@@ -101,22 +104,7 @@ df <- cor(mtcars)[1:3, 1:5] \%>\%
     abs() \%>\%
     melt(varnames = c("x", "y"))
 
-# individual
-ggplot(df) +
-    geom_sector(aes(x, y), theta = 75, fill = 2, individual = FALSE) +
-    theme_bw() +
-    theme(axis.title = element_blank())
-ggplot(df) +
-    geom_sector(aes(x, y), theta = 75, fill = 2, individual = FALSE) +
-    coord_fixed(ratio = 3 / 5) +
-    theme_bw() +
-    theme(axis.title = element_blank())
-ggplot(df) +
-    geom_sector(aes(x, y), theta = 75, fill = 2, individual = TRUE) +
-    theme_bw() +
-    theme(axis.title = element_blank())
-
-# theta
+## theta
 ggplot(df) +
     ## type = "percent", theta = 0-100
     geom_sector(
@@ -136,7 +124,7 @@ ggplot(df) +
     theme_bw() +
     theme(axis.title = element_blank())
 
-# r
+## r
 ggplot(df) +
     geom_sector(
         aes(y, x, theta = value * 100),
@@ -147,7 +135,7 @@ ggplot(df) +
     theme_bw() +
     theme(axis.title = element_blank())
 
-# start
+## start
 ggplot(df) +
     geom_sector(
         aes(y, x, theta = value * 100),
@@ -158,7 +146,7 @@ ggplot(df) +
     theme_bw() +
     theme(axis.title = element_blank())
 
-# r_start
+## r_start
 ggplot(df) +
     geom_sector(
         aes(y, x, theta = value * 100),
@@ -166,6 +154,105 @@ ggplot(df) +
         fill = 2,
         individual = TRUE
     ) +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+\donttest{
+######################################################################
+### individual and ratio
+# The ratio parameter only works when `individual = FALSE`.
+# When `ratio` is null, it will be auto calculated as
+# length(unique(y)) / length(unique(x)).
+
+## 1. without coord_fixed()
+# individual = TRUE
+ggplot(df) +
+    geom_sector(aes(x, y), theta = 75, fill = 2, individual = TRUE) +
+    theme_bw() +
+    theme(axis.title = element_blank())
+# individual = FALSE
+ggplot(df) +
+    geom_sector(aes(x, y), theta = 75, fill = 2, individual = FALSE) +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+## 2. individual = FALSE + coord_fixed()
+# example1 (This method was used in the past and is not recommended now):
+# ratio = 1 + coord_fixed(x/y)
+# In order to prevent deformation, only use  to fix the artboard to 1:1
+ggplot(df) +
+    geom_sector(
+        aes(x, y),
+        theta = 75,
+        fill = 2,
+        ratio = 1,
+        individual = FALSE
+    ) +
+    coord_fixed(3 / 5) +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+ggplot(df) +
+    geom_sector(
+        aes(y, x),
+        theta = 75,
+        fill = 2,
+        ratio = 1,
+        individual = FALSE
+    ) +
+    coord_fixed(5 / 3) +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+# example2 (It is more recommended to use this method):
+# ratio = y/x  + coord_fixed(1)
+# ALso, the ratio parameter can be omitted here, and ggsector will automatically calculate it
+ggplot(df) +
+    geom_sector(
+        aes(x, y),
+        theta = 75,
+        fill = 2,
+        # ratio = 5 / 3,
+        individual = FALSE
+    ) +
+    coord_fixed() +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+ggplot(df) +
+    geom_sector(
+        aes(y, x),
+        theta = 75,
+        fill = 2,
+        # ratio = 3 / 5,
+        individual = FALSE
+    ) +
+    coord_fixed() +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+## 3. individual = TRUE + coord_fixed() + r = 0.7
+ggplot(df) +
+    geom_sector(
+        aes(x, y),
+        theta = 75,
+        fill = 2,
+        r = 0.7,
+        individual = TRUE
+    ) +
+    coord_fixed() +
+    theme_bw() +
+    theme(axis.title = element_blank())
+ggplot(df) +
+    geom_sector(
+        aes(y, x),
+        theta = 75,
+        fill = 2,
+        r = 0.7,
+        # ratio = 10/ 3,
+        individual = TRUE
+    ) +
+    coord_fixed() +
     theme_bw() +
     theme(axis.title = element_blank())
 }

@@ -47,15 +47,17 @@ sector_df_custom <- function(n) {
 #' @param start Numeric, starting angle of sector.
 #' @param type "percent", "degree" or an integer (preferably greater than 50),
 #' represents the number of scattered points on the circle where the sector is drawn.
-#' When type = "percent", the circumference of the circle where the sector is
+#' When `type = "percent"`, the circumference of the circle where the sector is
 #' located is composed of 100 scattered points;
-#' when type = "degree", the circumference of the circle where the sector is
-#' located is composed of 360 scattered points
+#' when `type = "degree"`, the circumference of the circle where the sector is
+#' located is composed of 360 scattered points;
+#' when `type = 150`, the circumference of the circle where the sector is
+#' located is composed of 150 scattered points.
+#' @param ratio aspect ratio, expressed as `y / x`.
 #'
 #' @return coordinates of sector.
 #'
 #' @examples
-#' \donttest{
 #' ## coordinates of single sector
 #' # type of percent, start = 0, r_start = 0
 #' tmp_df <- sector_df(x = 0.5, y = 0.5, theta = 25, r = 0.4, start = 0, r_start = 0)
@@ -137,7 +139,6 @@ sector_df_custom <- function(n) {
 #'         fill = 3:1, col = 1:3
 #'     )
 #' )
-#' }
 #' @export
 sector_df <- function(x = 0.5,
                       y = 0.5,
@@ -145,7 +146,8 @@ sector_df <- function(x = 0.5,
                       r = 0.5,
                       start = 0,
                       r_start = 0,
-                      type = "percent"
+                      type = "percent",
+                      ratio = 1
                       #
 ) {
     if (type == "percent") {
@@ -163,6 +165,7 @@ sector_df <- function(x = 0.5,
     if (r_start < 0 || r_start >= r) stop(paste0('The "r_start" should be between [0-', r, ")"))
     theta <- round(theta)
     df_in <- sector_df[(start + 1):(start + theta + 1), ] * r
+    df_in$y <- df_in$y / ratio
     if (r_start != 0) {
         df_start <- sector_df[(start + 1):(start + theta + 1), ] * r_start
         tmp_x <- c(df_in$x + x, rev(df_start$x + x))
@@ -188,6 +191,7 @@ sector_df_multiple <- function(x = 0.5,
                                start = 0,
                                r_start = 0,
                                type = "percent",
+                               ratio = 1,
                                group
                                #
 ) {
@@ -198,7 +202,8 @@ sector_df_multiple <- function(x = 0.5,
         r = r,
         start = start,
         r_start = r_start,
-        type = type
+        type = type,
+        ratio = ratio
     )
 
     if (missing(group)) group <- seq_len(nrow(df_in))

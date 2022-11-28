@@ -11,7 +11,6 @@
 #' @return polygon grob
 #'
 #' @examples
-#' \donttest{
 #' ## Draw basic grid
 #'
 #' # sectorGrob with units of "cm" and type of "degree"
@@ -44,6 +43,7 @@
 #'     default.units = "npc"
 #' )
 #'
+#' \donttest{
 #' ## Draw sector with ComplexHeatmap
 #'
 #' # prepare data
@@ -147,6 +147,7 @@ sectorGrob <- function(x = 0.5,
                        start = 0,
                        r_start = 0,
                        type = "percent",
+                       ratio = 1,
                        group,
                        default.units = "npc",
                        vp = viewport(height = unit(1, "snpc"), width = unit(1, "snpc")),
@@ -173,6 +174,7 @@ sectorGrob <- function(x = 0.5,
         start = start,
         r_start = r_start,
         type = type,
+        ratio = ratio,
         group = group
     )
     pg <-
@@ -200,6 +202,7 @@ grid.sector <- function(x = 0.5,
                         start = 0,
                         r_start = 0,
                         type = "percent",
+                        ratio = 1,
                         group,
                         default.units = "npc",
                         vp = viewport(height = unit(1, "snpc"), width = unit(1, "snpc")),
@@ -225,6 +228,7 @@ grid.sector <- function(x = 0.5,
         start = start,
         r_start = r_start,
         type = type,
+        ratio = ratio,
         group = group,
         vp = vp,
         gp = gp,
