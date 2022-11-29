@@ -16,7 +16,7 @@ geom_sector(
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE,
-  individual = TRUE,
+  individual = FALSE,
   verbose = TRUE
 )
 }
@@ -66,10 +66,10 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 
-\item{individual}{Logical, default is TRUE.
+\item{individual}{Logical, default is FALSE.
 When "individual=FALSE", draw very quickly with a vector form,
 when "individual=TRUE", draw individually at a slower speed.
-Vector form cannot control the deformation of the sector, you need to add coord_fixed()}
+Anyway, for better presentation, please add coord_fixed().}
 
 \item{verbose}{Logical, default is TRUE. Whether to display reminder information.}
 }
@@ -86,23 +86,32 @@ when "individual=TRUE", draw individually at a slower speed.
 The required parameters in mapping are "x", "y", "theta", and
 the additional modifiable parameters are "r", "start", "r_start", "type", "colour", "fill", "ratio", "size" for line size, "linetype".
 
-When r = 0.5, the sector just fills the square.
+When there is coord_fixed(), r = 0.5 means that the sector-shaped
+background circle just fills the entire cell
 
+The \code{ratio} parameter is still an experimental parameter,
+if it is not necessary, please do not set it yourself.
 The \code{ratio} parameter only works when \code{individual = FALSE}.
-When \code{ratio} is null, it will be auto calculated as
-length(unique(y)) / length(unique(x))
+When \code{ratio} is null, it will be auto calculated.
+
+For better display effect, please always  add \code{coord_fixed()}.
 
 For details, please check the \code{\link[=grid.sector]{grid.sector()}}.
 
 For more details, please type \code{vignette("ggsector")}.
 }
 \examples{
-# prepare
+## prepare data
 library(ggsector)
 library(reshape2)
 df <- cor(mtcars)[1:3, 1:5] \%>\%
     abs() \%>\%
     melt(varnames = c("x", "y"))
+
+###
+## Note, for better display effect, please always add coord_fixed()
+## Note, for better display effect, please always add coord_fixed()
+## Note, for better display effect, please always add coord_fixed()
 
 ## theta
 ggplot(df) +
@@ -121,6 +130,7 @@ ggplot(df) +
         alpha = 0.5,
         individual = TRUE
     ) +
+    coord_fixed() +
     theme_bw() +
     theme(axis.title = element_blank())
 
@@ -132,6 +142,7 @@ ggplot(df) +
         fill = 2,
         individual = TRUE
     ) +
+    coord_fixed() +
     theme_bw() +
     theme(axis.title = element_blank())
 
@@ -143,6 +154,7 @@ ggplot(df) +
         fill = 2,
         individual = TRUE
     ) +
+    coord_fixed() +
     theme_bw() +
     theme(axis.title = element_blank())
 
@@ -154,105 +166,164 @@ ggplot(df) +
         fill = 2,
         individual = TRUE
     ) +
+    coord_fixed() +
     theme_bw() +
     theme(axis.title = element_blank())
 
 \donttest{
-######################################################################
-### individual and ratio
-# The ratio parameter only works when `individual = FALSE`.
-# When `ratio` is null, it will be auto calculated as
-# length(unique(y)) / length(unique(x)).
+####################  individual ###################
+##########  individual with coord_fixed() ##########
 
-## 1. without coord_fixed()
-# individual = TRUE
-ggplot(df) +
-    geom_sector(aes(x, y), theta = 75, fill = 2, individual = TRUE) +
-    theme_bw() +
-    theme(axis.title = element_blank())
-# individual = FALSE
-ggplot(df) +
-    geom_sector(aes(x, y), theta = 75, fill = 2, individual = FALSE) +
-    theme_bw() +
-    theme(axis.title = element_blank())
-
-## 2. individual = FALSE + coord_fixed()
-# example1 (This method was used in the past and is not recommended now):
-# ratio = 1 + coord_fixed(x/y)
-# In order to prevent deformation, only use  to fix the artboard to 1:1
-ggplot(df) +
+## `individual = TRUE` + coord_fixed()
+# x = x, y = y
+ggplot(rbind(
+    cbind(df, t1 = 1),
+    cbind(df[1:9, ], t1 = 2)
+)) +
+    facet_wrap(~t1, ncol = 2) +
     geom_sector(
         aes(x, y),
         theta = 75,
         fill = 2,
-        ratio = 1,
-        individual = FALSE
-    ) +
-    coord_fixed(3 / 5) +
-    theme_bw() +
-    theme(axis.title = element_blank())
-
-ggplot(df) +
-    geom_sector(
-        aes(y, x),
-        theta = 75,
-        fill = 2,
-        ratio = 1,
-        individual = FALSE
-    ) +
-    coord_fixed(5 / 3) +
-    theme_bw() +
-    theme(axis.title = element_blank())
-
-# example2 (It is more recommended to use this method):
-# ratio = y/x  + coord_fixed(1)
-# ALso, the ratio parameter can be omitted here, and ggsector will automatically calculate it
-ggplot(df) +
-    geom_sector(
-        aes(x, y),
-        theta = 75,
-        fill = 2,
-        # ratio = 5 / 3,
-        individual = FALSE
-    ) +
-    coord_fixed() +
-    theme_bw() +
-    theme(axis.title = element_blank())
-
-ggplot(df) +
-    geom_sector(
-        aes(y, x),
-        theta = 75,
-        fill = 2,
-        # ratio = 3 / 5,
-        individual = FALSE
-    ) +
-    coord_fixed() +
-    theme_bw() +
-    theme(axis.title = element_blank())
-
-## 3. individual = TRUE + coord_fixed() + r = 0.7
-ggplot(df) +
-    geom_sector(
-        aes(x, y),
-        theta = 75,
-        fill = 2,
-        r = 0.7,
+        r = 0.5,
         individual = TRUE
     ) +
     coord_fixed() +
     theme_bw() +
     theme(axis.title = element_blank())
-ggplot(df) +
+
+# x = y, y =x
+ggplot(rbind(
+    cbind(df, t1 = 1),
+    cbind(df[1:9, ], t1 = 2)
+)) +
+    facet_wrap(~t1, ncol = 2) +
     geom_sector(
         aes(y, x),
         theta = 75,
         fill = 2,
-        r = 0.7,
-        # ratio = 10/ 3,
+        r = 0.5,
         individual = TRUE
     ) +
     coord_fixed() +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+## `individual = FALSE` + coord_fixed()
+# x = x, y = y
+ggplot(rbind(
+    cbind(df, t1 = 1),
+    cbind(df[1:9, ], t1 = 2)
+)) +
+    facet_wrap(~t1, ncol = 2) +
+    geom_sector(
+        aes(x, y),
+        theta = 75,
+        fill = 2,
+        r = 0.5,
+        individual = FALSE
+    ) +
+    coord_fixed() +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+# x = y, y =x
+ggplot(rbind(
+    cbind(df, t1 = 1),
+    cbind(df[1:9, ], t1 = 2)
+)) +
+    facet_wrap(~t1, ncol = 2) +
+    geom_sector(
+        aes(y, x),
+        theta = 75,
+        fill = 2,
+        r = 0.5,
+        individual = TRUE
+    ) +
+    coord_fixed() +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+##########  individual without coord_fixed() ##########
+## If you are in a special situation and cannot use coord_fixed(),
+## then it is recommended that you use `individual = TRUE` and
+## the `r` parameter to fine-tune.
+## Also, to reduce the radius, you need to try it manually.
+
+## `individual = TRUE` without coord_fixed()
+# x = x, y = y
+ggplot(rbind(
+    cbind(df, t1 = 1),
+    cbind(df[1:9, ], t1 = 2)
+)) +
+    facet_wrap(~t1, ncol = 2) +
+    geom_sector(
+        aes(x, y),
+        theta = 75,
+        fill = 2,
+        r = 0.35, ## To reduce the radius, you need to try it manually
+        individual = TRUE
+    ) +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+# x = y, y =x
+ggplot(rbind(
+    cbind(df, t1 = 1),
+    cbind(df[1:9, ], t1 = 2)
+)) +
+    facet_wrap(~t1, ncol = 2) +
+    geom_sector(
+        aes(y, x),
+        theta = 75,
+        fill = 2,
+        r = 0.25, ## To reduce the radius, you need to try it manually
+        individual = TRUE
+    ) +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+## `individual = FALSE`
+## If you really want to use `individual = FALSE` without coord_fixed(),
+## you might try the experimental parameter `ratio'
+## You need to manually adjust the `ratio` value
+## to prevent sector deformation.
+# x = x, y = y
+ggplot(rbind(
+    cbind(df, t1 = 1),
+    cbind(df[1:9, ], t1 = 2)
+)) +
+    facet_wrap(~t1, ncol = 2) +
+    geom_sector(
+        aes(x, y),
+        theta = 75,
+        fill = 2,
+        r = 0.5,
+        ## You need to manually adjust the `ratio` value
+        ## to prevent sector deformation.
+        ratio = 1.6,
+        individual = FALSE
+    ) +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+# x = y, y =x
+ggplot(rbind(
+    cbind(df, t1 = 1),
+    cbind(df[1:9, ], t1 = 2)
+)) +
+    facet_wrap(~t1, ncol = 2) +
+    geom_sector(
+        aes(y, x),
+        theta = 75,
+        fill = 2,
+        r = 0.5,
+        ## You need to manually adjust the `ratio` value
+        ## to prevent sector deformation.
+        ratio = 1.6,
+        individual = FALSE
+    ) +
+    # coord_fixed() +
     theme_bw() +
     theme(axis.title = element_blank())
 }

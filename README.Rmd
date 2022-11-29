@@ -26,10 +26,9 @@ library("badger")
 
 <!-- badges: start -->
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-<!-- [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggsector)](https://cran.r-project.org/package=ggsector) -->
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggsector)](https://cran.r-project.org/package=ggsector)
 `r badge_devel("yanpd01/ggsector", "green")`
 
-`r badger::badge_custom("platforms", "all", "green")`
 `r badger::badge_custom("Windows", "passing", "green")`
 `r badger::badge_custom("Linux", "passing", "green")`
 <!-- badges: end -->
@@ -49,9 +48,7 @@ Pengdong Yan
 Get the released version from Cran:
 
 ```{r, eval = FALSE}
-## The new version of the R package is still under review.
-## If you want to try it out, you can use the following github method to install it
-# install.packages("ggsector")
+install.packages("ggsector")
 ```
 
 Or the development version from github or gitee:
@@ -73,11 +70,12 @@ remotes::install_git(
 
 ##  :books: Usage
 
-For the usage of this R package, please type `vignette("ggsector")` after installation to view it.
-There are detailed case descriptions in it.
+For the usage of this R package, please type `vignette("ggsector")`,
+`help(package = "ggsector")` or `?geom_sector`after installation to view it.
+There are detailed case descriptions about the usage.
 
 
-Or view the [examples](examples.rmd).
+Or view the [examples](examples1.rmd).
 
 ## :sparkling_heart: Acknowledgments
 

@@ -3,17 +3,24 @@
 ## Now
 
 ```{r check}
+## check
 devtools::document(roclets = c("rd", "collate", "namespace"))
 devtools::check() # 快捷键：Ctrl + Shift + E
+## check for cran
+# rhub::validate_email(email = "yanpd01@gmail.com", token = "6f28055d6e6e42ba80edae8641e6d9dc")
+devtools::check_rhub()
+# devtools::check_rhub(env_vars = c(R_COMPILE_AND_INSTALL_PACKAGES = "always")) ## 跑 FindNeighbors 会报错
+
+## install local
+devtools::install_local()
+
+## build
 devtools::load_all() # 快捷键：Ctrl + Shift + L
 devtools::unload()
 devtools::build_vignettes()
 devtools::build_readme()
 devtools::build()
-## check for cran
-# rhub::validate_email(email = "yanpd01@gmail.com", token = "6f28055d6e6e42ba80edae8641e6d9dc")
-devtools::check_rhub()
-# devtools::check_rhub(env_vars = c(R_COMPILE_AND_INSTALL_PACKAGES = "always")) ## 跑 FindNeighbors 会报错
+system("code .gitignore")
 ```
 
 ```{bash git}

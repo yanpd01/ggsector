@@ -205,21 +205,9 @@ library(reshape2)
 df <- cor(mtcars)[1:3, 1:5] %>%
     abs() %>%
     melt(varnames = c("x", "y"))
-
-## -----------------------------------------------------------------------------
-ggplot(df) +
-    geom_sector(aes(x, y), theta = 75, fill = 2, individual = FALSE) +
-    theme_bw() +
-    theme(axis.title = element_blank())
-ggplot(df) +
-    geom_sector(aes(x, y), theta = 75, fill = 2, individual = FALSE) +
-    coord_fixed(ratio = 3 / 5) +
-    theme_bw() +
-    theme(axis.title = element_blank())
-ggplot(df) +
-    geom_sector(aes(x, y), theta = 75, fill = 2, individual = TRUE) +
-    theme_bw() +
-    theme(axis.title = element_blank())
+## Note, for better display effect, please always add coord_fixed()
+## Note, for better display effect, please always add coord_fixed()
+## Note, for better display effect, please always add coord_fixed()
 
 ## -----------------------------------------------------------------------------
 ggplot(df) +
@@ -238,6 +226,7 @@ ggplot(df) +
         alpha = 0.5,
         individual = TRUE
     ) +
+    coord_fixed() +
     theme_bw() +
     theme(axis.title = element_blank())
 
@@ -249,6 +238,7 @@ ggplot(df) +
         fill = 2,
         individual = TRUE
     ) +
+    coord_fixed() +
     theme_bw() +
     theme(axis.title = element_blank())
 
@@ -260,6 +250,7 @@ ggplot(df) +
         fill = 2,
         individual = TRUE
     ) +
+    coord_fixed() +
     theme_bw() +
     theme(axis.title = element_blank())
 
@@ -271,13 +262,169 @@ ggplot(df) +
         fill = 2,
         individual = TRUE
     ) +
+    coord_fixed() +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+## -----------------------------------------------------------------------------
+# x = x, y = y
+ggplot(rbind(
+    cbind(df, t1 = 1),
+    cbind(df[1:9, ], t1 = 2)
+)) +
+    facet_wrap(~t1, ncol = 2) +
+    geom_sector(
+        aes(x, y),
+        theta = 75,
+        fill = 2,
+        r = 0.5,
+        individual = TRUE
+    ) +
+    coord_fixed() +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+## -----------------------------------------------------------------------------
+# x = y, y =x
+ggplot(rbind(
+    cbind(df, t1 = 1),
+    cbind(df[1:9, ], t1 = 2)
+)) +
+    facet_wrap(~t1, ncol = 2) +
+    geom_sector(
+        aes(y, x),
+        theta = 75,
+        fill = 2,
+        r = 0.5,
+        individual = TRUE
+    ) +
+    coord_fixed() +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+## -----------------------------------------------------------------------------
+# x = x, y = y
+ggplot(rbind(
+    cbind(df, t1 = 1),
+    cbind(df[1:9, ], t1 = 2)
+)) +
+    facet_wrap(~t1, ncol = 2) +
+    geom_sector(
+        aes(x, y),
+        theta = 75,
+        fill = 2,
+        r = 0.5,
+        individual = FALSE
+    ) +
+    coord_fixed() +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+## -----------------------------------------------------------------------------
+# x = y, y =x
+ggplot(rbind(
+    cbind(df, t1 = 1),
+    cbind(df[1:9, ], t1 = 2)
+)) +
+    facet_wrap(~t1, ncol = 2) +
+    geom_sector(
+        aes(y, x),
+        theta = 75,
+        fill = 2,
+        r = 0.5,
+        individual = TRUE
+    ) +
+    coord_fixed() +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+## -----------------------------------------------------------------------------
+# x = x, y = y
+ggplot(rbind(
+    cbind(df, t1 = 1),
+    cbind(df[1:9, ], t1 = 2)
+)) +
+    facet_wrap(~t1, ncol = 2) +
+    geom_sector(
+        aes(x, y),
+        theta = 75,
+        fill = 2,
+        r = 0.35, ## To reduce the radius, you need to try it manually
+        individual = TRUE
+    ) +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+## -----------------------------------------------------------------------------
+# x = y, y =x
+ggplot(rbind(
+    cbind(df, t1 = 1),
+    cbind(df[1:9, ], t1 = 2)
+)) +
+    facet_wrap(~t1, ncol = 2) +
+    geom_sector(
+        aes(y, x),
+        theta = 75,
+        fill = 2,
+        r = 0.25, ## To reduce the radius, you need to try it manually
+        individual = TRUE
+    ) +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+## -----------------------------------------------------------------------------
+# x = x, y = y
+ggplot(rbind(
+    cbind(df, t1 = 1),
+    cbind(df[1:9, ], t1 = 2)
+)) +
+    facet_wrap(~t1, ncol = 2) +
+    geom_sector(
+        aes(x, y),
+        theta = 75,
+        fill = 2,
+        r = 0.5,
+        ## You need to manually adjust the `ratio` value
+        ## to prevent sector deformation.
+        ratio = 1.6,
+        individual = FALSE
+    ) +
+    theme_bw() +
+    theme(axis.title = element_blank())
+
+## -----------------------------------------------------------------------------
+# x = y, y =x
+ggplot(rbind(
+    cbind(df, t1 = 1),
+    cbind(df[1:9, ], t1 = 2)
+)) +
+    facet_wrap(~t1, ncol = 2) +
+    geom_sector(
+        aes(y, x),
+        theta = 75,
+        fill = 2,
+        r = 0.5,
+        ## You need to manually adjust the `ratio` value
+        ## to prevent sector deformation.
+        ratio = 1.6,
+        individual = FALSE
+    ) +
+    # coord_fixed() +
     theme_bw() +
     theme(axis.title = element_blank())
 
 ## ---- eval = FALSE------------------------------------------------------------
 #  ## Download pbmc data from
 #  # https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz
-#  pbmc.data <- Read10X(data.dir = "../filtered_gene_bc_matrices/hg19")
+#  library(Seurat)
+#  path <- paste0(tempdir(), "/pbmc3k.tar.gz")
+#  file <- paste0(tempdir(), "/filtered_gene_bc_matrices/hg19")
+#  download.file(
+#      "https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz",
+#      path
+#  )
+#  untar(path, exdir = tempdir())
+#  pbmc.data <- Read10X(data.dir = file)
 #  pbmc <- CreateSeuratObject(
 #      counts = pbmc.data, project = "pbmc3k",
 #      min.cells = 3, min.features = 200

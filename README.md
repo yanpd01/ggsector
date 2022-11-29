@@ -7,18 +7,16 @@
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
 developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-<!-- [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggsector)](https://cran.r-project.org/package=ggsector) -->
-[![](https://img.shields.io/badge/devel%20version-1.6.0-green.svg)](https://github.com/yanpd01/ggsector)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggsector)](https://cran.r-project.org/package=ggsector)
+[![](https://img.shields.io/badge/devel%20version-1.6.2-green.svg)](https://github.com/yanpd01/ggsector)
 
-![](https://img.shields.io/badge/platforms-all-green.svg)
 ![](https://img.shields.io/badge/Windows-passing-green.svg)
 ![](https://img.shields.io/badge/Linux-passing-green.svg)
 <!-- badges: end -->
 
-The “ggsector” is an R package that can use “grid” or “ggplot2” to
-easily draw sectors. At the same time, “ggsector” provides some cases of
-how to call `grid.sector` in “ComplexHeatmap”, and provides a function
-to interface with “Seurat” to facilitate the display of cell markers.
+Some useful functions that can use ‘grid’ and ‘ggplot2’ to plot sectors
+and interact with ‘Seurat’ to plot gene expression percentages. Also,
+there are some examples of how to draw sectors in ‘ComplexHeatmap’.
 
 ## :writing_hand: Authors
 
@@ -29,9 +27,7 @@ Pengdong Yan
 Get the released version from Cran:
 
 ``` r
-## The new version of the R package is still under review.
-## If you want to try it out, you can use the following github method to install it
-# install.packages("ggsector")
+install.packages("ggsector")
 ```
 
 Or the development version from github or gitee:
@@ -52,11 +48,11 @@ remotes::install_git(
 
 ## :books: Usage
 
-For the usage of this R package, please type `vignette("ggsector")`
-after installation to view it. There are detailed case descriptions in
-it.
+For the usage of this R package, please type `vignette("ggsector")`,
+`help(package = "ggsector")` or `?geom_sector`after installation to view
+it. There are detailed case descriptions about the usage.
 
-Or view the [examples](examples.rmd).
+Or view the [examples](examples1.rmd).
 
 ## :sparkling_heart: Acknowledgments
 
