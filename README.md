@@ -52,8 +52,6 @@ For the usage of this R package, please type `vignette("ggsector")`,
 `help(package = "ggsector")` or `?geom_sector`after installation to view
 it. There are detailed case descriptions about the usage.
 
-Or view the [examples](examples1.rmd).
-
 ## :sparkling_heart: Acknowledgments
 
 The code of this R package refers to

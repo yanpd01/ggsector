@@ -572,11 +572,7 @@ ggplot(rbind(
 
 ## Use ggsector with Seurat
 
-Due to the large raw data of "pbmc", only the code is shown here, but not run. 
-
-Readers are invited to download the data and try it out.
-
-```{r, eval = FALSE}
+```{r}
 ## Download pbmc data from
 # https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz
 library(Seurat)
