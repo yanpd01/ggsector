@@ -55,16 +55,18 @@ Or the development version from github or gitee:
 
 ```{r, eval = FALSE}
 ## install.packages("remotes")
-# from github
-remotes::install_github(
-    "yanpd01/ggsector",
-    build_vignettes = TRUE
-)
-# from gitee
-remotes::install_git(
-    "https://gitee.com/yanpd01/ggsector",
-    build_vignettes = TRUE
-)
+
+## from github
+# simple install
+remotes::install_github("yanpd01/ggsector")
+# with vignettes
+remotes::install_github("yanpd01/ggsector", build_vignettes = TRUE)
+
+## from gitee
+# simple install
+remotes::install_git("https://gitee.com/yanpd01/ggsector")
+# with vignettes
+remotes::install_git("https://gitee.com/yanpd01/ggsector", build_vignettes = TRUE)
 ```
 
 

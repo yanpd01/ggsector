@@ -11,8 +11,10 @@ devtools::check() # 快捷键：Ctrl + Shift + E
 devtools::check_rhub()
 # devtools::check_rhub(env_vars = c(R_COMPILE_AND_INSTALL_PACKAGES = "always")) ## 跑 FindNeighbors 会报错
 
-## install local
+## install
 devtools::install_local()
+remotes::install_github("yanpd01/ggsector", build_vignettes = TRUE)
+remotes::install_git("https://gitee.com/yanpd01/ggsector", build_vignettes = TRUE)
 
 ## build
 devtools::load_all() # 快捷键：Ctrl + Shift + L

@@ -413,45 +413,45 @@ ggplot(rbind(
     theme_bw() +
     theme(axis.title = element_blank())
 
-## -----------------------------------------------------------------------------
-## Download pbmc data from
-# https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz
-library(Seurat)
-path <- paste0(tempdir(), "/pbmc3k.tar.gz")
-file <- paste0(tempdir(), "/filtered_gene_bc_matrices/hg19")
-download.file(
-    "https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz",
-    path
-)
-untar(path, exdir = tempdir())
-pbmc.data <- Read10X(data.dir = file)
-pbmc <- CreateSeuratObject(
-    counts = pbmc.data, project = "pbmc3k",
-    min.cells = 3, min.features = 200
-)
-pbmc <- NormalizeData(pbmc)
-pbmc <- FindVariableFeatures(pbmc, selection.method = "vst", nfeatures = 2000)
-pbmc <- ScaleData(pbmc, features = rownames(pbmc))
-pbmc <- RunPCA(pbmc)
-pbmc <- RunUMAP(pbmc, dim = 1:10)
-pbmc <- FindNeighbors(pbmc, dims = 1:10)
-pbmc <- FindClusters(pbmc, resolution = 0.5)
-mks <- tibble::tribble(
-    ~type, ~marker,
-    "Naive CD4+ T", "IL7R,CCR7",
-    "CD14+ Mono", "CD14,LYZ",
-    "Memory CD4+", "IL7R,S100A4",
-    "B", "MS4A1",
-    "CD8+ T", "CD8A",
-    "FCGR3A+ Mono", "FCGR3A,MS4A7",
-    "NK", "GNLY,NKG7",
-    "DC", "FCER1A,CST3",
-    "Platelet", "PPBP",
-) %>%
-    tidyr::separate_rows(marker, sep = ", *") %>%
-    dplyr::distinct()
-# Dotplot
-DotPlot(pbmc, features = unique(mks$marker)) + coord_flip()
-# contrast with DotPlot
-SectorPlot(pbmc, c(mks$marker, "fsdd"), features_level = unique(rev(mks$marker)))
+## ---- eval = FALSE------------------------------------------------------------
+#  ## Download pbmc data from
+#  # https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz
+#  library(Seurat)
+#  path <- paste0(tempdir(), "/pbmc3k.tar.gz")
+#  file <- paste0(tempdir(), "/filtered_gene_bc_matrices/hg19")
+#  download.file(
+#      "https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz",
+#      path
+#  )
+#  untar(path, exdir = tempdir())
+#  pbmc.data <- Read10X(data.dir = file)
+#  pbmc <- CreateSeuratObject(
+#      counts = pbmc.data, project = "pbmc3k",
+#      min.cells = 3, min.features = 200
+#  )
+#  pbmc <- NormalizeData(pbmc)
+#  pbmc <- FindVariableFeatures(pbmc, selection.method = "vst", nfeatures = 2000)
+#  pbmc <- ScaleData(pbmc, features = rownames(pbmc))
+#  pbmc <- RunPCA(pbmc)
+#  pbmc <- RunUMAP(pbmc, dim = 1:10)
+#  pbmc <- FindNeighbors(pbmc, dims = 1:10)
+#  pbmc <- FindClusters(pbmc, resolution = 0.5)
+#  mks <- tibble::tribble(
+#      ~type, ~marker,
+#      "Naive CD4+ T", "IL7R,CCR7",
+#      "CD14+ Mono", "CD14,LYZ",
+#      "Memory CD4+", "IL7R,S100A4",
+#      "B", "MS4A1",
+#      "CD8+ T", "CD8A",
+#      "FCGR3A+ Mono", "FCGR3A,MS4A7",
+#      "NK", "GNLY,NKG7",
+#      "DC", "FCER1A,CST3",
+#      "Platelet", "PPBP",
+#  ) %>%
+#      tidyr::separate_rows(marker, sep = ", *") %>%
+#      dplyr::distinct()
+#  # Dotplot
+#  DotPlot(pbmc, features = unique(mks$marker)) + coord_flip()
+#  # contrast with DotPlot
+#  SectorPlot(pbmc, c(mks$marker, "fsdd"), features_level = unique(rev(mks$marker)))
 

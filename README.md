@@ -8,7 +8,7 @@
 state and is being actively
 developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggsector)](https://cran.r-project.org/package=ggsector)
-[![](https://img.shields.io/badge/devel%20version-1.6.2-green.svg)](https://github.com/yanpd01/ggsector)
+[![](https://img.shields.io/badge/devel%20version-1.6.3-green.svg)](https://github.com/yanpd01/ggsector)
 
 ![](https://img.shields.io/badge/Windows-passing-green.svg)
 ![](https://img.shields.io/badge/Linux-passing-green.svg)
@@ -34,16 +34,18 @@ Or the development version from github or gitee:
 
 ``` r
 ## install.packages("remotes")
-# from github
-remotes::install_github(
-    "yanpd01/ggsector",
-    build_vignettes = TRUE
-)
-# from gitee
-remotes::install_git(
-    "https://gitee.com/yanpd01/ggsector",
-    build_vignettes = TRUE
-)
+
+## from github
+# simple install
+remotes::install_github("yanpd01/ggsector")
+# with vignettes
+remotes::install_github("yanpd01/ggsector", build_vignettes = TRUE)
+
+## from gitee
+# simple install
+remotes::install_git("https://gitee.com/yanpd01/ggsector")
+# with vignettes
+remotes::install_git("https://gitee.com/yanpd01/ggsector", build_vignettes = TRUE)
 ```
 
 ## :books: Usage
