@@ -11,7 +11,7 @@ developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repo
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggsector)](https://cran.r-project.org/package=ggsector)
 [![](https://img.shields.io/badge/devel%20version-1.6.3-deepgreen.svg)](https://github.com/yanpd01/ggsector)
 
-[![CRAN_download](http://cranlogs.r-pkg.org/badges/grand-total/ggsector??color=deepgreen)](https://cran.r-project.org/package=ggsector)
+<!-- [![CRAN_download](http://cranlogs.r-pkg.org/badges/grand-total/ggsector?color=green)](https://cran.r-project.org/package=ggsector) -->
 <!-- [![Github All Releases](https://img.shields.io/github/downloads/yanpd01/ggsector/total.svg)]() -->
 
 ![](https://img.shields.io/badge/Windows-passing-deepgreen.svg)

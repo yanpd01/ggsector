@@ -31,7 +31,7 @@ library("badger")
 `r badge_devel("yanpd01/ggsector", "deepgreen")`
 
 
-[![CRAN_download](http://cranlogs.r-pkg.org/badges/grand-total/ggsector??color=deepgreen)](https://cran.r-project.org/package=ggsector)
+<!-- [![CRAN_download](http://cranlogs.r-pkg.org/badges/grand-total/ggsector?color=green)](https://cran.r-project.org/package=ggsector) -->
 <!-- [![Github All Releases](https://img.shields.io/github/downloads/yanpd01/ggsector/total.svg)]() -->
 
 
