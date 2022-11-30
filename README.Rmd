@@ -9,12 +9,12 @@ html_preview: false
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-    collapse = TRUE,
-    comment = "#>",
-    fig.path = "man/figures/README-",
-    out.width = "100%",
-    message = FALSE,
-    warning = FALSE
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%",
+  message = FALSE,
+  warning = FALSE
 )
 ```
 
@@ -26,11 +26,17 @@ library("badger")
 
 <!-- badges: start -->
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggsector)](https://cran.r-project.org/package=ggsector)
-`r badge_devel("yanpd01/ggsector", "green")`
 
-`r badger::badge_custom("Windows", "passing", "green")`
-`r badger::badge_custom("Linux", "passing", "green")`
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggsector)](https://cran.r-project.org/package=ggsector)
+`r badge_devel("yanpd01/ggsector", "#4c1")`
+
+
+[![CRAN_download](http://cranlogs.r-pkg.org/badges/grand-total/ggpie??color=#4c1)](https://cran.r-project.org/package=ggpie)
+<!-- [![Github All Releases](https://img.shields.io/github/downloads/yanpd01/ggsector/total.svg)]() -->
+
+
+`r badger::badge_custom("Windows", "passing", "#4c1")`
+`r badger::badge_custom("Linux", "passing", "#4c1")`
 <!-- badges: end -->
 
 ```{r comment="", echo=FALSE, results='asis'}

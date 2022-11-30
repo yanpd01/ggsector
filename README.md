@@ -7,11 +7,15 @@
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
 developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggsector)](https://cran.r-project.org/package=ggsector)
-[![](https://img.shields.io/badge/devel%20version-1.6.3-green.svg)](https://github.com/yanpd01/ggsector)
 
-![](https://img.shields.io/badge/Windows-passing-green.svg)
-![](https://img.shields.io/badge/Linux-passing-green.svg)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggsector)](https://cran.r-project.org/package=ggsector)
+[![](https://img.shields.io/badge/devel%20version-1.6.3-#4c1.svg)](https://github.com/yanpd01/ggsector)
+
+[![CRAN_download](http://cranlogs.r-pkg.org/badges/grand-total/ggpie??color=#4c1)](https://cran.r-project.org/package=ggpie)
+<!-- [![Github All Releases](https://img.shields.io/github/downloads/yanpd01/ggsector/total.svg)]() -->
+
+![](https://img.shields.io/badge/Windows-passing-#4c1.svg)
+![](https://img.shields.io/badge/Linux-passing-#4c1.svg)
 <!-- badges: end -->
 
 Some useful functions that can use ‘grid’ and ‘ggplot2’ to plot sectors
