@@ -28,15 +28,15 @@ library("badger")
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggsector)](https://cran.r-project.org/package=ggsector)
-`r badge_devel("yanpd01/ggsector", "#4c1")`
+`r badge_devel("yanpd01/ggsector", "deepgreen")`
 
 
-[![CRAN_download](http://cranlogs.r-pkg.org/badges/grand-total/ggpie??color=#4c1)](https://cran.r-project.org/package=ggpie)
+[![CRAN_download](http://cranlogs.r-pkg.org/badges/grand-total/ggsector??color=deepgreen)](https://cran.r-project.org/package=ggsector)
 <!-- [![Github All Releases](https://img.shields.io/github/downloads/yanpd01/ggsector/total.svg)]() -->
 
 
-`r badger::badge_custom("Windows", "passing", "#4c1")`
-`r badger::badge_custom("Linux", "passing", "#4c1")`
+`r badger::badge_custom("Windows", "passing", "deepgreen")`
+`r badger::badge_custom("Linux", "passing", "deepgreen")`
 <!-- badges: end -->
 
 ```{r comment="", echo=FALSE, results='asis'}
