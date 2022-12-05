@@ -78,9 +78,8 @@ remotes::install_git("https://gitee.com/yanpd01/ggsector", build_vignettes = TRU
 
 ##  :books: Usage
 
-For the usage of this R package, please type `vignette("ggsector")`,
-`help(package = "ggsector")` or `?geom_sector`after installation to view it.
-There are detailed case descriptions about the usage.
+For more details, please refer to the online
+[vignette](https://cran.r-project.org/web/packages/ggsector/vignettes/ggsector.html).
 
 ## :sparkling_heart: Acknowledgments
 

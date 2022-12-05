@@ -1,6 +1,6 @@
 Package: ggsector
 Title: Draw Sectors
-Version: 1.6.3
+Version: 1.6.5
 Authors@R: 
     person(given = "Pengdong",
            family = "Yan",

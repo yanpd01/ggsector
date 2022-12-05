@@ -3,8 +3,8 @@ knitr::opts_chunk$set(
     tidy = FALSE,
     collapse = TRUE,
     comment = "#>",
-    fig.width = 8,
-    fig.height = 8
+    fig.width = 5,
+    fig.height = 4
 )
 
 ## ----setup, message = FALSE---------------------------------------------------
@@ -78,7 +78,7 @@ grid.polygon(
     )
 )
 
-## ---- fig.width=5, fig.height=4-----------------------------------------------
+## -----------------------------------------------------------------------------
 grid.newpage()
 gp <- sectorGrob(
     x = unit(c(3, 5, 7), "cm"),
@@ -93,7 +93,7 @@ gp <- sectorGrob(
 )
 grid.draw(gp)
 
-## ---- fig.width=5, fig.height=4-----------------------------------------------
+## -----------------------------------------------------------------------------
 grid.newpage()
 grid.sector(
     x = c(0.1, 0.5, 0.9),
@@ -117,7 +117,7 @@ t0 <- cor(mtcars) %>%
 mat <- abs(t0)
 mat[1:5, 1:5]
 
-## -----------------------------------------------------------------------------
+## ---- fig.width=8, fig.height=8-----------------------------------------------
 set.seed(1)
 Heatmap(
     mat,
@@ -141,7 +141,7 @@ Heatmap(
     height = unit(.7, "snpc")
 )
 
-## -----------------------------------------------------------------------------
+## ---- fig.width=8, fig.height=8-----------------------------------------------
 # The default viewport locks the horizontal and vertical axes
 # so that the sector does not deform, which needs to be removed here.
 # The radius 'r' is half the min(length, width).
@@ -171,7 +171,7 @@ Heatmap(
     height = unit(.7, "snpc")
 )
 
-## -----------------------------------------------------------------------------
+## ---- fig.width=8, fig.height=8-----------------------------------------------
 # The input matrix needs to be extracted with pindex(mat, i, j)
 set.seed(3)
 Heatmap(
@@ -209,7 +209,7 @@ df <- cor(mtcars)[1:3, 1:5] %>%
 ## Note, for better display effect, please always add coord_fixed()
 ## Note, for better display effect, please always add coord_fixed()
 
-## -----------------------------------------------------------------------------
+## ----fig.width=5, fig.height=4------------------------------------------------
 ggplot(df) +
     ## type = "percent", theta = 0-100
     geom_sector(
@@ -266,7 +266,7 @@ ggplot(df) +
     theme_bw() +
     theme(axis.title = element_blank())
 
-## -----------------------------------------------------------------------------
+## ----fig.width=6, fig.height=6------------------------------------------------
 # x = x, y = y
 ggplot(rbind(
     cbind(df, t1 = 1),
@@ -284,7 +284,7 @@ ggplot(rbind(
     theme_bw() +
     theme(axis.title = element_blank())
 
-## -----------------------------------------------------------------------------
+## ---- fig.width=8, fig.height=3-----------------------------------------------
 # x = y, y =x
 ggplot(rbind(
     cbind(df, t1 = 1),
@@ -302,7 +302,7 @@ ggplot(rbind(
     theme_bw() +
     theme(axis.title = element_blank())
 
-## -----------------------------------------------------------------------------
+## ---- fig.width=6, fig.height=6-----------------------------------------------
 # x = x, y = y
 ggplot(rbind(
     cbind(df, t1 = 1),
@@ -320,7 +320,7 @@ ggplot(rbind(
     theme_bw() +
     theme(axis.title = element_blank())
 
-## -----------------------------------------------------------------------------
+## ----fig.width=8, fig.height=3------------------------------------------------
 # x = y, y =x
 ggplot(rbind(
     cbind(df, t1 = 1),
@@ -338,7 +338,7 @@ ggplot(rbind(
     theme_bw() +
     theme(axis.title = element_blank())
 
-## -----------------------------------------------------------------------------
+## ----fig.width=6, fig.height=6------------------------------------------------
 # x = x, y = y
 ggplot(rbind(
     cbind(df, t1 = 1),
@@ -355,7 +355,7 @@ ggplot(rbind(
     theme_bw() +
     theme(axis.title = element_blank())
 
-## -----------------------------------------------------------------------------
+## ----fig.width=6, fig.height=6------------------------------------------------
 # x = y, y =x
 ggplot(rbind(
     cbind(df, t1 = 1),
@@ -372,7 +372,7 @@ ggplot(rbind(
     theme_bw() +
     theme(axis.title = element_blank())
 
-## -----------------------------------------------------------------------------
+## ----fig.width=6, fig.height=4------------------------------------------------
 # x = x, y = y
 ggplot(rbind(
     cbind(df, t1 = 1),
@@ -392,7 +392,7 @@ ggplot(rbind(
     theme_bw() +
     theme(axis.title = element_blank())
 
-## -----------------------------------------------------------------------------
+## ----fig.width=8, fig.height=6------------------------------------------------
 # x = y, y =x
 ggplot(rbind(
     cbind(df, t1 = 1),
@@ -435,6 +435,7 @@ ggplot(rbind(
 #  pbmc <- RunPCA(pbmc)
 #  pbmc <- RunUMAP(pbmc, dim = 1:10)
 #  pbmc <- FindNeighbors(pbmc, dims = 1:10)
+#  pbmc <- FindClusters(pbmc, resolution = 1)
 #  pbmc <- FindClusters(pbmc, resolution = 0.5)
 #  mks <- tibble::tribble(
 #      ~type, ~marker,
@@ -450,8 +451,22 @@ ggplot(rbind(
 #  ) %>%
 #      tidyr::separate_rows(marker, sep = ", *") %>%
 #      dplyr::distinct()
+#  
 #  # Dotplot
-#  DotPlot(pbmc, features = unique(mks$marker)) + coord_flip()
+#  DotPlot(pbmc, features = unique(markers$marker)) + coord_flip()
+#  
 #  # contrast with DotPlot
-#  SectorPlot(pbmc, c(mks$marker, "fsdd"), features_level = unique(rev(mks$marker)))
+#  SectorPlot(pbmc, markers$marker, features.level = unique(rev(markers$marker)))
+#  
+#  SectorPlot(pbmc, markers$marker, group.by = "RNA_snn_res.1")
+#  
+#  # split plot
+#  # Assume a variable 'day', expressed as the number of days of cell development.
+#  set.seed(1)
+#  pbmc[["day"]] <- sample(1:3, ncol(pbmc), TRUE)
+#  SectorPlot(pbmc, markers$marker, group.by = "RNA_snn_res.0.5", split.by = "day")
+#  SectorPlot(
+#      pbmc, markers$marker,
+#      group.by = "day", split.by = "RNA_snn_res.0.5", nrow = 1
+#  )
 

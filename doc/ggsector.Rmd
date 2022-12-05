@@ -21,8 +21,8 @@ knitr::opts_chunk$set(
     tidy = FALSE,
     collapse = TRUE,
     comment = "#>",
-    fig.width = 8,
-    fig.height = 8
+    fig.width = 5,
+    fig.height = 4
 )
 ```
 
@@ -128,7 +128,7 @@ grid.polygon(
 
 `sectorGrob` with units of "cm" and type of "degree"
 
-```{r, fig.width=5, fig.height=4}
+```{r}
 grid.newpage()
 gp <- sectorGrob(
     x = unit(c(3, 5, 7), "cm"),
@@ -148,7 +148,7 @@ grid.draw(gp)
 
 `grid.sector` with units of "npc" and type of "percent"
 
-```{r, fig.width=5, fig.height=4}
+```{r}
 grid.newpage()
 grid.sector(
     x = c(0.1, 0.5, 0.9),
@@ -183,7 +183,7 @@ mat[1:5, 1:5]
 Realized by modifying the [grid::viewport()] with cell_fun,
 the sector can be set with a fixed width and height
 
-```{r}
+```{r, fig.width=8, fig.height=8}
 set.seed(1)
 Heatmap(
     mat,
@@ -212,7 +212,7 @@ Heatmap(
 
 Realized in the form of coordinates + radius with cell_fun.
 
-```{r}
+```{r, fig.width=8, fig.height=8}
 # The default viewport locks the horizontal and vertical axes
 # so that the sector does not deform, which needs to be removed here.
 # The radius 'r' is half the min(length, width).
@@ -247,7 +247,7 @@ Heatmap(
 
 Realized With layer fun
 
-```{r}
+```{r, fig.width=8, fig.height=8}
 # The input matrix needs to be extracted with pindex(mat, i, j)
 set.seed(3)
 Heatmap(
@@ -297,7 +297,7 @@ The sector angle parameter, used in combination with the type parameter, the typ
 When type = "percent", the complete circle is a polygon composed of 100 scattered points, and theta takes a value of 0-100. <br>
 When type = "degree", the complete circle is a polygon composed of 360 scattered points, and theta takes a value of 0-360. <br>
 
-```{r}
+```{r,fig.width=5, fig.height=4}
 ggplot(df) +
     ## type = "percent", theta = 0-100
     geom_sector(
@@ -318,6 +318,7 @@ ggplot(df) +
     theme_bw() +
     theme(axis.title = element_blank())
 ```
+
 Careful observation reveals:<br><br>
 The sectors shapes in the two modes are not completely overlapped, this is because:<br>
 when type = "percent", the circumference is 100 scattered points, and the input value will be round() to an integer of 0-100,<br>
@@ -394,7 +395,7 @@ For better display effect, please always add `coord_fixed()`.
 
 ##### `individual = TRUE` + coord_fixed()
 
-```{r}
+```{r,fig.width=6, fig.height=6}
 # x = x, y = y
 ggplot(rbind(
     cbind(df, t1 = 1),
@@ -413,7 +414,7 @@ ggplot(rbind(
     theme(axis.title = element_blank())
 ```
 
-```{r}
+```{r, fig.width=8, fig.height=3}
 # x = y, y =x
 ggplot(rbind(
     cbind(df, t1 = 1),
@@ -434,7 +435,7 @@ ggplot(rbind(
 
 ##### `individual = FALSE` + coord_fixed()
 
-```{r}
+```{r, fig.width=6, fig.height=6}
 # x = x, y = y
 ggplot(rbind(
     cbind(df, t1 = 1),
@@ -454,7 +455,7 @@ ggplot(rbind(
 ```
 
 
-```{r}
+```{r,fig.width=8, fig.height=3}
 # x = y, y =x
 ggplot(rbind(
     cbind(df, t1 = 1),
@@ -482,7 +483,7 @@ then it is recommended that you use `individual = TRUE` and
 the `r` parameter to fine-tune.
 Also, to reduce the radius, you need to try it manually.
 
-```{r}
+```{r,fig.width=6, fig.height=6}
 # x = x, y = y
 ggplot(rbind(
     cbind(df, t1 = 1),
@@ -500,7 +501,7 @@ ggplot(rbind(
     theme(axis.title = element_blank())
 ```
 
-```{r}
+```{r,fig.width=6, fig.height=6}
 # x = y, y =x
 ggplot(rbind(
     cbind(df, t1 = 1),
@@ -526,7 +527,7 @@ you might try the experimental parameter `ratio'
 You need to manually adjust the `ratio` value
 to prevent sector deformation.
 
-```{r}
+```{r,fig.width=6, fig.height=4}
 # x = x, y = y
 ggplot(rbind(
     cbind(df, t1 = 1),
@@ -547,7 +548,7 @@ ggplot(rbind(
     theme(axis.title = element_blank())
 ```
 
-```{r}
+```{r,fig.width=8, fig.height=6}
 # x = y, y =x
 ggplot(rbind(
     cbind(df, t1 = 1),
@@ -598,6 +599,7 @@ pbmc <- ScaleData(pbmc, features = rownames(pbmc))
 pbmc <- RunPCA(pbmc)
 pbmc <- RunUMAP(pbmc, dim = 1:10)
 pbmc <- FindNeighbors(pbmc, dims = 1:10)
+pbmc <- FindClusters(pbmc, resolution = 1)
 pbmc <- FindClusters(pbmc, resolution = 0.5)
 mks <- tibble::tribble(
     ~type, ~marker,
@@ -613,9 +615,23 @@ mks <- tibble::tribble(
 ) %>%
     tidyr::separate_rows(marker, sep = ", *") %>%
     dplyr::distinct()
+
 # Dotplot
-DotPlot(pbmc, features = unique(mks$marker)) + coord_flip()
+DotPlot(pbmc, features = unique(markers$marker)) + coord_flip()
+
 # contrast with DotPlot
-SectorPlot(pbmc, c(mks$marker, "fsdd"), features_level = unique(rev(mks$marker)))
+SectorPlot(pbmc, markers$marker, features.level = unique(rev(markers$marker)))
+
+SectorPlot(pbmc, markers$marker, group.by = "RNA_snn_res.1")
+
+# split plot
+# Assume a variable 'day', expressed as the number of days of cell development.
+set.seed(1)
+pbmc[["day"]] <- sample(1:3, ncol(pbmc), TRUE)
+SectorPlot(pbmc, markers$marker, group.by = "RNA_snn_res.0.5", split.by = "day")
+SectorPlot(
+    pbmc, markers$marker,
+    group.by = "day", split.by = "RNA_snn_res.0.5", nrow = 1
+)
 ```
 

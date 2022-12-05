@@ -7,15 +7,18 @@
 #' @rdname seurat
 #' @param object Seurat object
 #' @param features Input vector of genes list.
-#' @param features_level Levels of genes list.
+#' @param features.level Levels of genes list.
 #' @param assay Specific assay to get data from or set data for; defaults to the default assay.
-#' @param slot Specific assay data to get or set
+#' @param slot Specific assay data to get or set.
 #' @param group.by Column of metadata to group the cells by, default is Idents().
-#' @param group_level Levels of group.
+#' @param group.level Levels of group.
+#' @param split.by Column of metadata to split the cells by, default is NULL.
+#' @param split.level Levels of split vars.
 #' @param col_low Colours for low ends of the gradient.
 #' @param col_mid Colour for mid point.
 #' @param col_high Colours for high ends of the gradient.
 #' @param col_midpoint The midpoint (in data value) of the diverging scale.
+#' @param ... Other arguments for [ggplot2::facet_wrap()].
 #' Defaults to quantile(exp, 0.5)
 #'
 #' @return ggplot
@@ -61,25 +64,41 @@
 #' ) %>%
 #'     tidyr::separate_rows(marker, sep = ", *") %>%
 #'     dplyr::distinct()
+#'
 #' # Dotplot
 #' DotPlot(pbmc, features = unique(markers$marker)) + coord_flip()
+#'
 #' # contrast with DotPlot
-#' SectorPlot(pbmc, markers$marker, features_level = unique(rev(markers$marker)))
+#' SectorPlot(pbmc, markers$marker, features.level = unique(rev(markers$marker)))
+#'
 #' SectorPlot(pbmc, markers$marker, group.by = "RNA_snn_res.1")
+#'
+#' # split plot
+#' # Assume a variable 'day', expressed as the number of days of cell development.
+#' set.seed(1)
+#' pbmc[["day"]] <- sample(1:3, ncol(pbmc), TRUE)
+#' SectorPlot(pbmc, markers$marker, group.by = "RNA_snn_res.0.5", split.by = "day")
+#' SectorPlot(
+#'     pbmc, markers$marker,
+#'     group.by = "day", split.by = "RNA_snn_res.0.5", nrow = 1
+#' )
 #' }
 #'
 #' @export
 SectorPlot <- function(object,
                        features,
-                       features_level,
+                       features.level,
                        assay,
                        slot = c("data", "scale.data", "counts"),
                        group.by,
-                       group_level,
+                       group.level,
+                       split.by,
+                       split.level,
                        col_low = "blue",
                        col_mid = "white",
                        col_high = "red",
-                       col_midpoint
+                       col_midpoint,
+                       ...
                        #
 ) {
     ## define var
@@ -90,43 +109,71 @@ SectorPlot <- function(object,
     slot <- match.arg(slot)
     if (missing(group.by)) {
         group <- Seurat::Idents(sob)
+        group_name <- "Idents"
     } else {
         group <- sob[[group.by]][[1]]
+        group_name <- group.by
+    }
+    if (missing(split.by)) {
+        split <- 1
+    } else {
+        split <- sob[[split.by]][[1]]
     }
     # select gene
     mk_gene <- intersect(features, rownames(sob))
     diff_gene <- setdiff(features, mk_gene)
-    if (length(diff_gene)) warning(paste("These genes were not found in the Seurat object:\n", diff_gene))
+    if (length(diff_gene)) {
+        warning(paste("These genes were not found in the Seurat object:\n", diff_gene))
+    }
 
     ## treat data
     df_sob <- Seurat::GetAssayData(sob, slot = slot, assay = assay)[mk_gene, ]
     df_sum <-
         Matrix::t(df_sob) %>%
         tibble::as_tibble() %>%
-        dplyr::bind_cols(group = group, .) %>%
-        dplyr::group_by(group) %>%
-        dplyr::summarise_all(list(exp = mean, pct = function(x) sum(x > 0) / length(x))) %>%
+        dplyr::bind_cols(group = group, split = split, .) %>%
+        dplyr::group_by(group, split) %>%
+        dplyr::summarise_all(list(exp = mean, pct = function(x) sum(x > 0) / length(x)), ) %>%
         tidyr::pivot_longer(
-            -1,
+            -(1:2),
             names_to = c("gene", ".value"),
             names_pattern = "(^.*)_(.{3}$)"
         )
-    ## col and level
+    ## col
     if (missing(col_midpoint)) col_midpoint <- stats::quantile(df_sum$exp, 0.5)
-    if (missing(features_level)) features_level <- mk_gene
-    if (!missing(group_level)) {
-        g_level <- unique(group_level)
-        if (length(g_level) != length(group_level)) warning("Duplicate values in group_level")
+    # group_level
+    if (!missing(group.level)) {
+        g_level <- unique(group.level)
+        if (length(g_level) != length(group.level)) warning("Duplicate values in group.level")
         df_sum$group <- factor(df_sum$group, levels = g_level)
+    } else {
+        df_sum$group <- factor(df_sum$group)
     }
-    f_level <- unique(features_level)
-    if (length(f_level) != length(features_level)) warning("Duplicate values in features_level")
+    # split level
+    if (!missing(split.level)) {
+        s_level <- unique(split.level)
+        if (length(s_level) != length(split.level)) warning("Duplicate values in split.level")
+        df_sum$split <- factor(df_sum$split, levels = s_level)
+    } else {
+        df_sum$split <- factor(df_sum$split)
+    }
+    # feature level
+    if (missing(features.level)) features.level <- mk_gene
+    f_level <- unique(features.level)
+    if (length(f_level) != length(features.level)) warning("Duplicate values in features.level")
     df_sum$gene <- factor(df_sum$gene, levels = rev(f_level))
     # ggplot
-    ggplot(df_sum) +
+    if (length(unique(df_sum$split)) == 1) {
+        p <- ggplot(df_sum)
+    } else {
+        p <- ggplot(df_sum) +
+            facet_wrap(~split, ...)
+    }
+    p +
         aes_string("group", "gene", theta = "pct * 100", fill = "exp") +
+        labs(x = group_name, y = paste0("Gene ", slot)) +
         geom_sector(verbose = FALSE) +
-        coord_fixed(length(unique(group)) / length(unique(mk_gene))) +
         scale_fill_gradient2(low = col_low, mid = col_mid, high = col_high, midpoint = col_midpoint) +
-        theme_classic()
+        theme_bw() +
+        coord_fixed()
 }

@@ -1,4 +1,4 @@
-^ggsector\.Rproj$
+^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.Rhistory
 ^LICENSE.*$

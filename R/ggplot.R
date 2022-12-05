@@ -56,6 +56,7 @@ GeomSectorPanel <- ggproto(
     },
     draw_panel = function(data, panel_params, coord, na.rm = FALSE) {
         ### coord transform
+        # print(data)
         coords <- coord$transform(data, panel_params)
         ### Calculate the range of the radius
         # ratio
@@ -128,10 +129,16 @@ GeomSectorIndividual <- ggproto(
     setup_data = function(data, params) {
         data$width_raw <- resolution(data$x, FALSE)
         data$height_raw <- resolution(data$y, FALSE)
+        len <- nrow(data) + 1
+        rank_x <- as.numeric(factor(data$x)) * len^2
+        rank_y <- as.numeric(factor(data$y)) * len
+        data$group <- rank_x + rank_y
+        # print(data)
         return(data)
     },
     draw_group = function(data, panel_params, coord, na.rm = FALSE) {
         ### coord trans
+        # print(data)
         coords <- coord$transform(data, panel_params)
         ### Calculate the range of the radius
         # ratio

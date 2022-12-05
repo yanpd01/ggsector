@@ -1,16 +1,16 @@
 ## sector df -------------------------
 sector_df_100 <- data.frame(
-    x = round(sin(seq(0, 4 * pi, length.out = 201)), 10),
-    y = round(cos(seq(0, 4 * pi, length.out = 201)), 10)
+    x = round(sin(seq(0, 6 * pi, length.out = 301)), 10),
+    y = round(cos(seq(0, 6 * pi, length.out = 301)), 10)
 )
 sector_df_360 <- data.frame(
-    x = round(sin(seq(0, 4 * pi, length.out = 721)), 10),
-    y = round(cos(seq(0, 4 * pi, length.out = 721)), 10)
+    x = round(sin(seq(0, 6 * pi, length.out = 1081)), 10),
+    y = round(cos(seq(0, 6 * pi, length.out = 1081)), 10)
 )
 sector_df_custom <- function(n) {
     data.frame(
-        x = round(sin(seq(0, 4 * pi, length.out = 2 * n + 1)), 10),
-        y = round(cos(seq(0, 4 * pi, length.out = 2 * n + 1)), 10)
+        x = round(sin(seq(0, 6 * pi, length.out = 3 * n + 1)), 10),
+        y = round(cos(seq(0, 6 * pi, length.out = 3 * n + 1)), 10)
     )
 }
 
@@ -161,7 +161,7 @@ sector_df <- function(x = 0.5,
         sector_df <- sector_df_custom(n)
     }
     if (theta < 0 || theta > n) stop(paste0('The "theta" should be between [0-', n, "]"))
-    if (start < 0 || start > n) stop(paste0('The "start of theta" should be between [0-', n, "]"))
+    if (start < 0 || start > 2 * n) stop(paste0('The "start of theta" should be between [0-', 2 * n, "]"))
     if (r_start < 0 || r_start >= r) stop(paste0('The "r_start" should be between [0-', r, ")"))
     theta <- round(theta)
     df_in <- sector_df[(start + 1):(start + theta + 1), ] * r
