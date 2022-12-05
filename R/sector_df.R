@@ -168,6 +168,7 @@ sector_df <- function(x = 0.5,
     df_in$y <- df_in$y / ratio
     if (r_start != 0) {
         df_start <- sector_df[(start + 1):(start + theta + 1), ] * r_start
+        df_start$y <- df_start$y / ratio
         tmp_x <- c(df_in$x + x, rev(df_start$x + x))
         tmp_y <- c(df_in$y + y, rev(df_start$y + y))
     } else {
