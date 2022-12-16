@@ -81,7 +81,7 @@ remotes::install_git("https://gitee.com/yanpd01/ggsector", build_vignettes = TRU
 For more details, please refer to the online
 [vignette](https://cran.r-project.org/web/packages/ggsector/vignettes/ggsector.html).
 
-![logo](figs/ggsector.png)
+![logo](ggsector.png)
 
 ## :sparkling_heart: Acknowledgments
 
