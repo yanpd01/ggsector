@@ -81,6 +81,8 @@ remotes::install_git("https://gitee.com/yanpd01/ggsector", build_vignettes = TRU
 For more details, please refer to the online
 [vignette](https://cran.r-project.org/web/packages/ggsector/vignettes/ggsector.html).
 
+![logo](figs/ggsector.png)
+
 ## :sparkling_heart: Acknowledgments
 
 The code of this R package refers to [jjplot](https://github.com/junjunlab/jjPlot) of [JunJunLao](https://github.com/junjunlab) and [ggplot2](https://github.com/tidyverse/ggplot2) of [Hadley](https://github.com/hadley).

@@ -20,8 +20,9 @@ remotes::install_git("https://gitee.com/yanpd01/ggsector", build_vignettes = TRU
 devtools::load_all() # 快捷键：Ctrl + Shift + L
 devtools::unload()
 devtools::build_vignettes()
-devtools::build_readme()
+# devtools::build_readme()
 devtools::build()
+remotes::install_github("yanpd01/ggsector", build_vignettes = TRUE)
 system("code .gitignore")
 ```
 

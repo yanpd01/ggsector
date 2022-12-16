@@ -338,7 +338,7 @@ ggplot(rbind(
     theme_bw() +
     theme(axis.title = element_blank())
 
-## ----fig.width=6, fig.height=6------------------------------------------------
+## ----fig.width=6, fig.height=4------------------------------------------------
 # x = x, y = y
 ggplot(rbind(
     cbind(df, t1 = 1),
@@ -355,7 +355,7 @@ ggplot(rbind(
     theme_bw() +
     theme(axis.title = element_blank())
 
-## ----fig.width=6, fig.height=6------------------------------------------------
+## ----fig.width=6, fig.height=4------------------------------------------------
 # x = y, y =x
 ggplot(rbind(
     cbind(df, t1 = 1),
@@ -392,7 +392,7 @@ ggplot(rbind(
     theme_bw() +
     theme(axis.title = element_blank())
 
-## ----fig.width=8, fig.height=6------------------------------------------------
+## ----fig.width=6, fig.height=4------------------------------------------------
 # x = y, y =x
 ggplot(rbind(
     cbind(df, t1 = 1),

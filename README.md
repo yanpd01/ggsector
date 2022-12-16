@@ -9,7 +9,7 @@ state and is being actively
 developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggsector)](https://cran.r-project.org/package=ggsector)
-[![](https://img.shields.io/badge/devel%20version-1.6.5-deepgreen.svg)](https://github.com/yanpd01/ggsector)
+[![](https://img.shields.io/badge/devel%20version-1.6.6-deepgreen.svg)](https://github.com/yanpd01/ggsector)
 
 <!-- [![CRAN_download](http://cranlogs.r-pkg.org/badges/grand-total/ggsector?color=green)](https://cran.r-project.org/package=ggsector) -->
 <!-- [![Github All Releases](https://img.shields.io/github/downloads/yanpd01/ggsector/total.svg)]() -->
@@ -56,6 +56,8 @@ remotes::install_git("https://gitee.com/yanpd01/ggsector", build_vignettes = TRU
 
 For more details, please refer to the online
 [vignette](https://cran.r-project.org/web/packages/ggsector/vignettes/ggsector.html).
+
+![logo](figs/ggsector.png)
 
 ## :sparkling_heart: Acknowledgments
 
