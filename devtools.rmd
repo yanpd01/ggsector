@@ -10,6 +10,11 @@ devtools::check() # 快捷键：Ctrl + Shift + E
 # rhub::validate_email(email = "yanpd01@gmail.com", token = "6f28055d6e6e42ba80edae8641e6d9dc")
 library(rhub)
 rhub_setup()
+git add .
+git commit -m 'workflow 2'
+git push origin main
+rhub::rhub_doctor()
+rhub::rhub_check()
 
 ## install
 devtools::install_local()
