@@ -97,15 +97,14 @@ SectorPlot <- function(object,
                        col_low = "blue",
                        col_mid = "white",
                        col_high = "red",
-                       col_midpoint,
-                       ...
-                       #
-) {
+                       col_midpoint, ...) {
     ## define var
     . <- NULL
     ## para
     sob <- object
-    if (missing(assay)) assay <- Seurat::DefaultAssay(sob)
+    if (missing(assay)) {
+        assay <- Seurat::DefaultAssay(sob)
+    }
     slot <- match.arg(slot)
     if (missing(group.by)) {
         group <- Seurat::Idents(sob)
@@ -123,28 +122,63 @@ SectorPlot <- function(object,
     mk_gene <- intersect(features, rownames(sob))
     diff_gene <- setdiff(features, mk_gene)
     if (length(diff_gene)) {
-        warning(paste("These genes were not found in the Seurat object:\n", diff_gene))
+        warning(paste(
+            "These genes were not found in the Seurat object:\n",
+            paste(diff_gene, collapse = ", ")
+        ))
     }
 
     ## treat data
     df_sob <- Seurat::GetAssayData(sob, slot = slot, assay = assay)[mk_gene, ]
-    df_sum <-
-        Matrix::t(df_sob) %>%
+
+    if (slot == "counts") {
+        df_sob_raw <- df_sob
+    } else {
+        df_sob_raw <- Seurat::GetAssayData(sob, slot = "counts", assay = assay)[rownames(df_sob), ]
+    }
+
+
+    df_sum_exp <- Matrix::t(df_sob) %>%
         tibble::as_tibble() %>%
-        dplyr::bind_cols(group = group, split = split, .) %>%
+        dplyr::bind_cols(
+            group = group,
+            split = split, .
+        ) %>%
         dplyr::group_by(group, split) %>%
-        dplyr::summarise_all(list(exp = mean, pct = function(x) sum(x > 0) / length(x)), ) %>%
-        tidyr::pivot_longer(
-            -(1:2),
-            names_to = c("gene", ".value"),
-            names_pattern = "(^.*)_(.{3}$)"
+        dplyr::summarise_all(list(exp = mean))
+
+    df_sum_pct <- Matrix::t(df_sob_raw) %>%
+        tibble::as_tibble() %>%
+        dplyr::bind_cols(
+            group = group,
+            split = split, .
+        ) %>%
+        dplyr::group_by(group, split) %>%
+        dplyr::summarise_all(list(pct = function(x) {
+            sum(x >
+                0) / length(x)
+        }), )
+    df_sum_bind <- dplyr::left_join(
+        df_sum_exp,
+        df_sum_pct,
+        by = c("group", "split")
+    )
+
+    df_sum <- df_sum_bind %>%
+        tidyr::pivot_longer(-c(group, split),
+            names_to = c("gene", ".value"), names_pattern = "(^.*)_(.{3}$)"
         )
+
+
     ## col
-    if (missing(col_midpoint)) col_midpoint <- stats::quantile(df_sum$exp, 0.5)
-    # group_level
+    if (missing(col_midpoint)) {
+        col_midpoint <- stats::quantile(df_sum$exp, 0.5)
+    }
     if (!missing(group.level)) {
         g_level <- unique(group.level)
-        if (length(g_level) != length(group.level)) warning("Duplicate values in group.level")
+        if (length(g_level) != length(group.level)) {
+            warning("Duplicate values in group.level")
+        }
         df_sum$group <- factor(df_sum$group, levels = g_level)
     } else {
         df_sum$group <- factor(df_sum$group)
@@ -152,15 +186,21 @@ SectorPlot <- function(object,
     # split level
     if (!missing(split.level)) {
         s_level <- unique(split.level)
-        if (length(s_level) != length(split.level)) warning("Duplicate values in split.level")
+        if (length(s_level) != length(split.level)) {
+            warning("Duplicate values in split.level")
+        }
         df_sum$split <- factor(df_sum$split, levels = s_level)
     } else {
         df_sum$split <- factor(df_sum$split)
     }
     # feature level
-    if (missing(features.level)) features.level <- mk_gene
+    if (missing(features.level)) {
+        features.level <- mk_gene
+    }
     f_level <- unique(features.level)
-    if (length(f_level) != length(features.level)) warning("Duplicate values in features.level")
+    if (length(f_level) != length(features.level)) {
+        warning("Duplicate values in features.level")
+    }
     df_sum$gene <- factor(df_sum$gene, levels = rev(f_level))
     # ggplot
     if (length(unique(df_sum$split)) == 1) {
@@ -169,11 +209,11 @@ SectorPlot <- function(object,
         p <- ggplot(df_sum) +
             facet_wrap(~split, ...)
     }
-    p +
-        aes_string("group", "gene", theta = "pct * 100", fill = "exp") +
+    p + aes_string("group", "gene", theta = "pct * 100", fill = "exp") +
         labs(x = group_name, y = paste0("Gene ", slot)) +
         geom_sector(verbose = FALSE) +
-        scale_fill_gradient2(low = col_low, mid = col_mid, high = col_high, midpoint = col_midpoint) +
-        theme_bw() +
-        coord_fixed()
+        scale_fill_gradient2(
+            low = col_low, mid = col_mid, high = col_high,
+            midpoint = col_midpoint
+        ) + theme_bw() + coord_fixed()
 }

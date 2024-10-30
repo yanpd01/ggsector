@@ -601,7 +601,7 @@ pbmc <- RunUMAP(pbmc, dim = 1:10)
 pbmc <- FindNeighbors(pbmc, dims = 1:10)
 pbmc <- FindClusters(pbmc, resolution = 1)
 pbmc <- FindClusters(pbmc, resolution = 0.5)
-mks <- tibble::tribble(
+markers <- tibble::tribble(
     ~type, ~marker,
     "Naive CD4+ T", "IL7R,CCR7",
     "CD14+ Mono", "CD14,LYZ",
@@ -623,6 +623,7 @@ DotPlot(pbmc, features = unique(markers$marker)) + coord_flip()
 SectorPlot(pbmc, markers$marker, features.level = unique(rev(markers$marker)))
 
 SectorPlot(pbmc, markers$marker, group.by = "RNA_snn_res.1")
+SectorPlot(pbmc, markers$marker, group.by = "RNA_snn_res.1", slot = "scale.data")
 
 # split plot
 # Assume a variable 'day', expressed as the number of days of cell development.
