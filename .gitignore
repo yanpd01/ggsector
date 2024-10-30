@@ -35,3 +35,5 @@ plot_out
 .history
 .history/*
 tmp.rmd
+/doc/
+/Meta/

@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
     tidy = FALSE,
     collapse = TRUE,
@@ -15,7 +15,7 @@ library(Seurat)
 library(ggplot2)
 library(ggsector)
 
-## ---- fig.width=3, fig.height=3-----------------------------------------------
+## ----fig.width=3, fig.height=3------------------------------------------------
 tmp_df <- sector_df(x = 0.5, y = 0.5, theta = 25, r = 0.4, start = 0, r_start = 0)
 head(tmp_df)
 grid.newpage()
@@ -24,7 +24,7 @@ grid.polygon(
     vp = viewport(height = unit(1, "snpc"), width = unit(1, "snpc"))
 )
 
-## ---- fig.width=3, fig.height=3-----------------------------------------------
+## ----fig.width=3, fig.height=3------------------------------------------------
 tmp_df <- sector_df(x = 0.5, y = 0.5, theta = 25, r = 0.4, start = 50, r_start = 0.2)
 head(tmp_df)
 grid.newpage()
@@ -33,7 +33,7 @@ grid.polygon(
     vp = viewport(height = unit(1, "snpc"), width = unit(1, "snpc"))
 )
 
-## ---- fig.width=3, fig.height=3-----------------------------------------------
+## ----fig.width=3, fig.height=3------------------------------------------------
 tmp_df <- sector_df(
     x = 0.5, y = 0.5, theta = 180, r = 0.4,
     start = 90, r_start = 0, type = "degree"
@@ -45,7 +45,7 @@ grid.polygon(
     vp = viewport(height = unit(1, "snpc"), width = unit(1, "snpc"))
 )
 
-## ---- fig.width=3, fig.height=3-----------------------------------------------
+## ----fig.width=3, fig.height=3------------------------------------------------
 tmp_df <- sector_df(
     x = 0.5, y = 0.5, theta = 180, r = 0.4,
     start = 270, r_start = 0.2, type = "degree"
@@ -57,7 +57,7 @@ grid.polygon(
     vp = viewport(height = unit(1, "snpc"), width = unit(1, "snpc"))
 )
 
-## ---- fig.width=3, fig.height=3-----------------------------------------------
+## ----fig.width=3, fig.height=3------------------------------------------------
 tmp_df <- sector_df_multiple(
     x = c(0.2, 0.5, 0.8),
     theta = c(25, 50, 75),
@@ -117,7 +117,7 @@ t0 <- cor(mtcars) %>%
 mat <- abs(t0)
 mat[1:5, 1:5]
 
-## ---- fig.width=8, fig.height=8-----------------------------------------------
+## ----fig.width=8, fig.height=8------------------------------------------------
 set.seed(1)
 Heatmap(
     mat,
@@ -141,7 +141,7 @@ Heatmap(
     height = unit(.7, "snpc")
 )
 
-## ---- fig.width=8, fig.height=8-----------------------------------------------
+## ----fig.width=8, fig.height=8------------------------------------------------
 # The default viewport locks the horizontal and vertical axes
 # so that the sector does not deform, which needs to be removed here.
 # The radius 'r' is half the min(length, width).
@@ -171,7 +171,7 @@ Heatmap(
     height = unit(.7, "snpc")
 )
 
-## ---- fig.width=8, fig.height=8-----------------------------------------------
+## ----fig.width=8, fig.height=8------------------------------------------------
 # The input matrix needs to be extracted with pindex(mat, i, j)
 set.seed(3)
 Heatmap(
@@ -284,7 +284,7 @@ ggplot(rbind(
     theme_bw() +
     theme(axis.title = element_blank())
 
-## ---- fig.width=8, fig.height=3-----------------------------------------------
+## ----fig.width=8, fig.height=3------------------------------------------------
 # x = y, y =x
 ggplot(rbind(
     cbind(df, t1 = 1),
@@ -302,7 +302,7 @@ ggplot(rbind(
     theme_bw() +
     theme(axis.title = element_blank())
 
-## ---- fig.width=6, fig.height=6-----------------------------------------------
+## ----fig.width=6, fig.height=6------------------------------------------------
 # x = x, y = y
 ggplot(rbind(
     cbind(df, t1 = 1),
@@ -413,7 +413,7 @@ ggplot(rbind(
     theme_bw() +
     theme(axis.title = element_blank())
 
-## ---- eval = FALSE------------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  ## Download pbmc data from
 #  # https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz
 #  library(Seurat)
@@ -437,7 +437,7 @@ ggplot(rbind(
 #  pbmc <- FindNeighbors(pbmc, dims = 1:10)
 #  pbmc <- FindClusters(pbmc, resolution = 1)
 #  pbmc <- FindClusters(pbmc, resolution = 0.5)
-#  mks <- tibble::tribble(
+#  markers <- tibble::tribble(
 #      ~type, ~marker,
 #      "Naive CD4+ T", "IL7R,CCR7",
 #      "CD14+ Mono", "CD14,LYZ",
@@ -459,6 +459,7 @@ ggplot(rbind(
 #  SectorPlot(pbmc, markers$marker, features.level = unique(rev(markers$marker)))
 #  
 #  SectorPlot(pbmc, markers$marker, group.by = "RNA_snn_res.1")
+#  SectorPlot(pbmc, markers$marker, group.by = "RNA_snn_res.1", slot = "scale.data")
 #  
 #  # split plot
 #  # Assume a variable 'day', expressed as the number of days of cell development.

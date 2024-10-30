@@ -32,4 +32,4 @@ Imports:
     tibble,
     tidyr
 VignetteBuilder: knitr
-BugReports: https://github.com/yanpd01/ggsector
+BugReports: https://github.com/yanpd01/ggsector/issues
