@@ -6,6 +6,7 @@
 ## check
 devtools::document(roclets = c("rd", "collate", "namespace"))
 devtools::check() # 快捷键：Ctrl + Shift + E
+
 ## check for cran
 # rhub::validate_email(email = "yanpd01@gmail.com", token = "6f28055d6e6e42ba80edae8641e6d9dc")
 library(rhub)
@@ -21,12 +22,15 @@ devtools::install_local()
 remotes::install_github("yanpd01/ggsector", build_vignettes = TRUE)
 remotes::install_git("https://gitee.com/yanpd01/ggsector", build_vignettes = TRUE)
 
-## build
+## load
 devtools::load_all() # 快捷键：Ctrl + Shift + L
 devtools::unload()
-devtools::build_vignettes()
+
+## build
 # devtools::build_readme()
+devtools::build_vignettes()
 devtools::build()
+
 remotes::install_github("yanpd01/ggsector", build_vignettes = TRUE)
 system("code .gitignore")
 ```
