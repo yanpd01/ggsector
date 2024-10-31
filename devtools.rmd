@@ -4,6 +4,7 @@
 
 ```{r check}
 ## check
+devtools::build_vignettes()
 devtools::document(roclets = c("rd", "collate", "namespace"))
 devtools::check() # 快捷键：Ctrl + Shift + E
 
@@ -28,7 +29,6 @@ devtools::unload()
 
 ## build
 # devtools::build_readme()
-devtools::build_vignettes()
 devtools::build()
 
 remotes::install_github("yanpd01/ggsector", build_vignettes = TRUE)

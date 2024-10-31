@@ -8,12 +8,21 @@ knitr::opts_chunk$set(
 )
 
 ## ----setup, message = FALSE---------------------------------------------------
+##library
 library(magrittr)
 library(grid)
-library(ComplexHeatmap)
 library(Seurat)
 library(ggplot2)
 library(ggsector)
+
+##ComplexHeatmap
+if (!require("ComplexHeatmap", quietly = TRUE)) {
+    if (!require("BiocManager", quietly = TRUE)) {
+        install.packages("BiocManager")
+    }
+    BiocManager::install("ComplexHeatmap")
+}
+library(ComplexHeatmap)
 
 ## ----fig.width=3, fig.height=3------------------------------------------------
 tmp_df <- sector_df(x = 0.5, y = 0.5, theta = 25, r = 0.4, start = 0, r_start = 0)

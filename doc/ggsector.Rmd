@@ -29,12 +29,21 @@ knitr::opts_chunk$set(
 Load the required R packages.
 
 ```{r setup, message = FALSE}
+##library
 library(magrittr)
 library(grid)
-library(ComplexHeatmap)
 library(Seurat)
 library(ggplot2)
 library(ggsector)
+
+##ComplexHeatmap
+if (!require("ComplexHeatmap", quietly = TRUE)) {
+    if (!require("BiocManager", quietly = TRUE)) {
+        install.packages("BiocManager")
+    }
+    BiocManager::install("ComplexHeatmap")
+}
+library(ComplexHeatmap)
 ```
 
 
