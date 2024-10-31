@@ -35,15 +35,6 @@ library(grid)
 library(Seurat)
 library(ggplot2)
 library(ggsector)
-
-##ComplexHeatmap
-if (!require("ComplexHeatmap", quietly = TRUE)) {
-    if (!require("BiocManager", quietly = TRUE)) {
-        install.packages("BiocManager")
-    }
-    BiocManager::install("ComplexHeatmap")
-}
-library(ComplexHeatmap)
 ```
 
 
@@ -177,9 +168,19 @@ grid.sector(
 
 ### Prepare data
 
-```{r}
+```{r, eval=rlang::is_installed("ComplexHeatmap")}
+## install ComplexHeatmap
+# if (!require("ComplexHeatmap", quietly = TRUE)) {
+#     if (!require("BiocManager", quietly = TRUE)) {
+#         install.packages("BiocManager")
+#     }
+#     BiocManager::install("ComplexHeatmap")
+# }
+
+## run
 library(magrittr)
 library(ComplexHeatmap)
+
 t0 <- cor(mtcars) %>%
     set_colnames(paste("y_", colnames(.))) %>%
     set_rownames(paste("x_", rownames(.)))
@@ -192,7 +193,7 @@ mat[1:5, 1:5]
 Realized by modifying the [grid::viewport()] with cell_fun,
 the sector can be set with a fixed width and height
 
-```{r, fig.width=8, fig.height=8}
+```{r, fig.width=8, fig.height=8, eval=rlang::is_installed("ComplexHeatmap")}
 set.seed(1)
 Heatmap(
     mat,
@@ -221,7 +222,7 @@ Heatmap(
 
 Realized in the form of coordinates + radius with cell_fun.
 
-```{r, fig.width=8, fig.height=8}
+```{r, fig.width=8, fig.height=8, eval=rlang::is_installed("ComplexHeatmap")}
 # The default viewport locks the horizontal and vertical axes
 # so that the sector does not deform, which needs to be removed here.
 # The radius 'r' is half the min(length, width).
@@ -256,7 +257,7 @@ Heatmap(
 
 Realized With layer fun
 
-```{r, fig.width=8, fig.height=8}
+```{r, fig.width=8, fig.height=8, eval=rlang::is_installed("ComplexHeatmap")}
 # The input matrix needs to be extracted with pindex(mat, i, j)
 set.seed(3)
 Heatmap(
